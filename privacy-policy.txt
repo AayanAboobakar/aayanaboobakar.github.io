@@ -1,0 +1,34 @@
+Privacy Policy
+Last updated: August 13, 2025
+
+This Privacy Policy describes how your data is handled when using our app.
+
+1. Information We Collect
+We do not collect any personally identifiable information from users directly.
+
+However, we may use third-party services (such as Google AdMob) that may collect anonymous usage data to serve relevant ads.
+
+2. Third-Party Services
+We use the following third-party service in our app:
+
+Google AdMob
+AdMob may collect certain data (e.g., device information, app usage, IP address) to deliver personalized and non-personalized ads.
+Please refer to Google’s Privacy & Terms for more details.
+3. How We Use Information
+We use analytics and ad services only to:
+
+Improve the app experience
+Serve relevant advertisements
+We do not share your data with any other third parties.
+
+4. Children’s Privacy
+This app is suitable for users of all ages. We do not knowingly collect personal information from children under 13. If you believe your child has provided us with personal data, please contact us so we can delete it.
+
+5. Security
+We strive to keep your data secure by relying on trusted third-party providers and never requesting personal data ourselves.
+
+6. Changes to This Policy
+We may update this Privacy Policy from time to time. Updates will be posted within the app or on the app store listing.
+
+7. Contact
+If you have any questions about this Privacy Policy, feel free to contact us at: Contact Us
