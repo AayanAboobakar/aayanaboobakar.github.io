@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Brain – General Knowledge Trivia</title>
+  <style>
+    :root {
+      --primary-color: #2a9df4;
+      --dark-color: #111;
+      --light-color: #f9f9f9;
+      --accent-color: #ffcc00;
+      --font-heading: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      --font-body: 'Open Sans', Arial, sans-serif;
+    }
+    body {
+      margin:0;
+      padding:0;
+      background: var(--light-color);
+      color: var(--dark-color);
+      font-family: var(--font-body);
+      line-height:1.6;
+    }
+    header {
+      background: var(--primary-color);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-family: var(--font-heading);
+      font-size: 2.8rem;
+    }
+    header p {
+      font-size: 1.2rem;
+      margin: 10px 0 0 0;
+    }
+    .download-links {
+      margin: 20px 0;
+    }
+    .download-links a {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 12px 24px;
+      background: white;
+      color: var(--primary-color);
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    section {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+      gap: 30px;
+    }
+    .feature {
+      background: white;
+      padding: 24px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+    .feature h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+      font-family: var(--font-heading);
+    }
+    .screenshots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .screenshots img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    footer {
+      background: var(--dark-color);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.9rem;
+    }
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: #121212;
+        color: white;
+      }
+      header {
+        background: var(--primary-color);
+      }
+      section {
+        background: #121212;
+      }
+      .feature {
+        background: #1e1e1e;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      }
+      footer {
+        background: #000;
+      }
+
+      .screenshots {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* always 4 per row on desktop */
+        gap: 20px;
+        justify-items: center;
+      }
+
+      /* Responsive fallback for mobile/tablet */
+      @media (max-width: 900px) {
+        .screenshots {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 500px) {
+        .screenshots {
+          grid-template-columns: 1fr;
+        }
+      }
+
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Quiz Brain</h1>
+  <p>General Knowledge Trivia – challenge your mind, sharpen your wits.</p>
+  <div class="download-links">
+    <a href="https://apps.apple.com/us/app/quiz-brain-general-knowledge/id6749145692" target="_blank">Download on the App Store</a>
+    <!-- If you plan Android version, insert Google Play link here -->
+  </div>
+</header>
+
+<section id="features">
+  <h2 style="text-align:center; font-family: var(--font-heading);">Features</h2>
+  <div class="features">
+    <div class="feature">
+      <h3>1,000+ Trivia Questions</h3>
+      <p>Fresh questions across a wide range of topics to keep you coming back.</p>
+    </div>
+    <div class="feature">
+      <h3>Track Your Progress</h3>
+      <p>See your score, accuracy, and longest streak — improve over time.</p>
+    </div>
+    <div class="feature">
+      <h3>No Repeats Until You’ve Seen Them All</h3>
+      <p>Every session feels new and exciting.</p>
+    </div>
+    <div class="feature">
+      <h3>Great for All Ages</h3>
+      <p>Fun, simple, and accessible — whether quick play or long session.</p>
+    </div>
+  </div>
+</section>
+
+<section id="screenshots">
+  <h2 style="text-align:center; font-family: var(--font-heading);">App Screenshots</h2>
+  <div class="screenshots">
+    <img src="IMG_5404.PNG" alt="Quiz Brain screenshot 1">
+    <img src="IMG_5405.PNG" alt="Quiz Brain screenshot 2">
+    <img src="IMG_5406.PNG" alt="Quiz Brain screenshot 3">
+    <img src="IMG_5407.PNG" alt="Quiz Brain screenshot 4">
+    <!-- Add more as you like -->
+  </div>
+</section>
+
+<section id="about">
+  <h2 style="text-align:center; font-family: var(--font-heading);">About the Developer</h2>
+  <p style="text-align:center; max-width:700px; margin:0 auto;">Hi, I’m <strong>Aayan Azfar Aboobakar</strong>, a computer-science student and indie developer passionate about building apps that are fun, simple and help you learn something new. Quiz Brain is the result of my hackathon experiences, my mini-projects and my desire to deliver clean, enjoyable trivia gameplay. Thanks for checking it out!</p>
+</section>
+
+<footer>
+  <p>© 2025 Aayan Azfar Aboobakar. All rights reserved.</p>
+  <p><a href="https://aayanaboobakar.com" style="color: var(--accent-color); text-decoration:none;">Visit my website</a></p>
+</footer>
+
+</body>
+</html>
