@@ -1,34 +1,69 @@
 Privacy Policy
-Last updated: August 13, 2025
 
-This Privacy Policy describes how your data is handled when using our app.
+Last updated: April 14, 2026
+
+This Privacy Policy explains how information is handled when using our applications.
 
 1. Information We Collect
-We do not collect any personally identifiable information from users directly.
 
-However, we may use third-party services (such as Google AdMob) that may collect anonymous usage data to serve relevant ads.
+We do not require users to create an account and we do not directly collect personally identifiable information.
+
+Depending on the app, certain data (such as user-generated content, preferences, or usage data) may be stored locally on your device to provide core functionality.
+
+We do not transmit this data to our servers unless explicitly stated.
 
 2. Third-Party Services
-We use the following third-party service in our app:
 
-Google AdMob
-AdMob may collect certain data (e.g., device information, app usage, IP address) to deliver personalized and non-personalized ads.
-Please refer to Google’s Privacy & Terms for more details.
-3. How We Use Information
-We use analytics and ad services only to:
+Our apps may use third-party services (such as advertising or analytics providers) to support functionality.
 
-Improve the app experience
-Serve relevant advertisements
-We do not share your data with any other third parties.
+These services may collect limited information, which can include:
 
-4. Children’s Privacy
-This app is suitable for users of all ages. We do not knowingly collect personal information from children under 13. If you believe your child has provided us with personal data, please contact us so we can delete it.
+Device information
+App usage data
+Approximate location (e.g., via IP address)
 
-5. Security
-We strive to keep your data secure by relying on trusted third-party providers and never requesting personal data ourselves.
+This data is typically used for:
 
-6. Changes to This Policy
-We may update this Privacy Policy from time to time. Updates will be posted within the app or on the app store listing.
+Delivering advertisements (personalized or non-personalized)
+Improving app performance and user experience
 
-7. Contact
-If you have any questions about this Privacy Policy, feel free to contact us at: aayanaboobakar.github.io/support.html
+Please refer to the respective third-party privacy policies for more details.
+
+3. How Information Is Used
+
+We use data only to:
+
+Provide and maintain app functionality
+Improve performance and user experience
+Deliver advertisements where applicable
+
+We do not sell or share user data with third parties beyond what is necessary for these purposes.
+
+4. Data Storage and Control
+
+User data is generally stored locally on the device unless otherwise specified.
+
+Users have control over their data and may:
+
+Modify or delete data within the app
+Reset app data where such functionality is available
+5. Children’s Privacy
+
+Our apps are intended for a general audience and do not knowingly collect personal information from children under the age of 13.
+
+If you believe that a child has provided personal information, please contact us so appropriate action can be taken.
+
+6. Security
+
+We take reasonable steps to protect user data. Where possible, data is stored locally on the device to minimize exposure.
+
+We rely on trusted third-party providers for services such as analytics and advertising.
+
+7. Changes to This Policy
+
+We may update this Privacy Policy from time to time. Updates will be reflected within the app or on the app store listing.
+
+8. Contact
+
+If you have any questions about this Privacy Policy, you can contact us at:
+aayanaboobakar.com/support
