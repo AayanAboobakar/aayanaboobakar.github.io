@@ -1,6 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
 	// Copy buttons in contact section
 	const contactContainer = document.querySelector('#contact') || document;
+	const yearNode = document.querySelector('#copyright-year');
+
+	if (yearNode) {
+		yearNode.textContent = String(new Date().getFullYear());
+	}
 
 	async function copyText(value) {
 		try {
@@ -12,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			// fall through to fallback
 		}
 
-		// Fallback copy
 		const ta = document.createElement('textarea');
 		ta.value = value;
 		ta.style.position = 'fixed';
@@ -52,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				boxShadow: '0 4px 10px rgba(0,0,0,0.25)'
 			});
 			parent.appendChild(bubble);
-			void bubble.offsetWidth; // trigger transition
+			void bubble.offsetWidth;
 		} else {
 			bubble.style.left = `${btn.offsetLeft + (btn.offsetWidth / 2)}px`;
 		}
@@ -90,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		}, 1500);
 	}, true);
 
-	// Smooth scrolling
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 	const scrollLinks = document.querySelectorAll('a.scrolly, #nav a[href^="#"]');
 	scrollLinks.forEach(link => {
 		link.addEventListener('click', function (e) {
@@ -102,13 +106,12 @@ document.addEventListener('DOMContentLoaded', () => {
 			if (!targetElement) return;
 
 			targetElement.scrollIntoView({
-				behavior: 'smooth',
+				behavior: prefersReducedMotion ? 'auto' : 'smooth',
 				block: 'start'
 			});
 		});
 	});
 
-	// Active nav highlighting on scroll
 	const navLinks = Array.from(document.querySelectorAll('#nav a'));
 	const sections = Array.from(document.querySelectorAll('article[id]'));
 	const topLink = document.querySelector('#nav a[href="#top"]');
@@ -118,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		sections.forEach(section => {
 			const sectionTop = section.offsetTop;
-			if (window.pageYOffset >= sectionTop - 50) {
+			if (window.pageYOffset >= sectionTop - 60) {
 				current = section.getAttribute('id');
 			}
 		});
@@ -136,5 +139,5 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	changeNavActiveState();
-	window.addEventListener('scroll', changeNavActiveState);
+	window.addEventListener('scroll', changeNavActiveState, { passive: true });
 });
