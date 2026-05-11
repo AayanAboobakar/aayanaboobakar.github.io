@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz Brain</title>
+  <title>Quiz Brain – Fast General Knowledge Rounds</title>
+  <meta name="description" content="Quiz Brain is a general knowledge trivia app for iPhone with fast rounds, category choices, flexible game lengths, and a cleaner replay-focused interface.">
+  <link rel="icon" type="image/png" href="images/shared/logo.png">
   <style>
     :root {
       --bg-a: #091726;
@@ -14,20 +16,18 @@
       --stroke: rgba(255, 255, 255, 0.12);
       --text: #f8f9fc;
       --muted: rgba(248, 249, 252, 0.74);
-      --warm: #f68c3f;
-      --warm-2: #f25053;
       --gold: #f2c363;
       --green: #42c87a;
       --blue: #56a8ff;
       --pink: #ef6e9f;
+      --orange: #f68c3f;
       --purple: #9173ff;
       --shadow: 0 26px 60px rgba(0, 0, 0, 0.28);
+      --shadow-sm: 0 12px 30px rgba(0, 0, 0, 0.2);
     }
 
     * { box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
-
     body {
       margin: 0;
       font-family: "Avenir Next", "Nunito Sans", "Segoe UI", sans-serif;
@@ -38,11 +38,12 @@
         radial-gradient(circle at 80% 82%, rgba(145, 115, 255, 0.16), transparent 22%),
         linear-gradient(135deg, var(--bg-a), var(--bg-b) 46%, var(--bg-c));
       min-height: 100vh;
-      line-height: 1.45;
+      line-height: 1.5;
     }
 
-    img { display: block; max-width: 100%; }
+    h1, h2, h3, p { margin: 0; }
     a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
 
     .page {
       width: min(1160px, calc(100% - 28px));
@@ -96,7 +97,7 @@
       background: var(--panel);
       backdrop-filter: blur(18px);
       font-weight: 700;
-      transition: 180ms ease;
+      transition: transform 180ms ease, background-color 180ms ease;
     }
 
     .nav-links a:hover,
@@ -116,7 +117,7 @@
 
     .glass,
     .feature-card,
-    .gallery-card,
+    .shots-wrap,
     .footer-card {
       background: var(--panel);
       border: 1px solid var(--stroke);
@@ -141,26 +142,24 @@
       margin-bottom: 16px;
     }
 
-    h1, h2, h3, p { margin: 0; }
-
     h1 {
-      font-size: clamp(2.8rem, 6vw, 5.3rem);
-      line-height: 0.93;
-      letter-spacing: -0.045em;
+      font-size: clamp(2.65rem, 6vw, 5rem);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
       margin-bottom: 16px;
     }
 
     .lead {
       max-width: 34rem;
       color: var(--muted);
-      font-size: 1.08rem;
-      margin-bottom: 24px;
+      font-size: 1.06rem;
+      margin-bottom: 22px;
     }
 
     .hero-points {
       display: grid;
       gap: 10px;
-      margin-bottom: 28px;
+      margin-bottom: 26px;
     }
 
     .hero-points div {
@@ -181,7 +180,7 @@
 
     .store-link {
       display: inline-flex;
-      transition: 180ms ease;
+      transition: transform 180ms ease;
     }
 
     .store-badge {
@@ -231,7 +230,7 @@
       width: min(42%, 230px);
       border-radius: 28px;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 24px 50px rgba(0, 0, 0, 0.34);
       background: #0e1626;
     }
@@ -239,6 +238,8 @@
     .shot img {
       width: 100%;
       height: auto;
+      aspect-ratio: 9 / 19.5;
+      object-fit: cover;
     }
 
     .shot.one { top: 8px; left: 4%; transform: rotate(-8deg); }
@@ -264,17 +265,23 @@
 
     .section-header p {
       color: var(--muted);
-      max-width: 32rem;
+      max-width: 33rem;
     }
 
     .features {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 14px;
     }
 
     .feature-card {
       padding: 22px;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
     }
 
     .icon {
@@ -291,35 +298,60 @@
     .gold { background: linear-gradient(135deg, #f1c461, #e4902d); }
     .green { background: linear-gradient(135deg, #40c778, #148c61); }
     .blue { background: linear-gradient(135deg, #5aa9ff, #3769e4); }
-    .pink { background: linear-gradient(135deg, #ef6e9f, #c34580); }
     .purple { background: linear-gradient(135deg, #9475ff, #6149d9); }
-    .orange { background: linear-gradient(135deg, #f68c3f, #f25053); }
 
     .feature-card h3 {
-      font-size: 1.15rem;
+      font-size: 1.12rem;
       margin-bottom: 8px;
     }
 
     .feature-card p {
       color: var(--muted);
-      font-size: 0.98rem;
+      font-size: 0.96rem;
     }
 
-    .gallery {
+    .shots-wrap {
+      padding: 14px;
+    }
+
+    .shot-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(210px, 240px);
       gap: 14px;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      padding-bottom: 4px;
+      scroll-behavior: smooth;
     }
 
-    .gallery-card {
-      padding: 12px;
+    .shot-grid::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .shot-grid::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+    }
+
+    .shot-grid::-webkit-scrollbar-thumb {
+      background: rgba(242, 195, 99, 0.85);
+      border-radius: 999px;
+    }
+
+    .gallery-shot {
+      position: static;
+      width: auto;
+      transform: none !important;
+      box-shadow: var(--shadow-sm);
+      background: rgba(255, 255, 255, 0.05);
     }
 
     .screenshot-card {
       border-radius: 22px;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.10);
-      transition: 180ms ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 180ms ease;
     }
 
     .footer-card {
@@ -344,16 +376,24 @@
       max-width: 36rem;
     }
 
+    footer {
+      margin-top: 18px;
+      padding-bottom: 10px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    footer p + p {
+      margin-top: 0.35rem;
+    }
+
     @media (max-width: 1040px) {
       .hero {
         grid-template-columns: 1fr;
       }
 
       .features {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .gallery {
         grid-template-columns: 1fr 1fr;
       }
 
@@ -373,15 +413,14 @@
         align-items: stretch;
       }
 
-      .features,
-      .gallery {
+      .features {
         grid-template-columns: 1fr;
       }
 
       .hero-copy,
       .hero-visual,
       .feature-card,
-      .gallery-card,
+      .shots-wrap,
       .footer-card {
         padding: 18px;
       }
@@ -389,13 +428,18 @@
       .phone-stack {
         min-height: auto;
         display: grid;
-        gap: 14px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
       }
 
       .shot {
         position: static;
         width: 100%;
         transform: none !important;
+      }
+
+      .shot-grid {
+        grid-auto-columns: minmax(168px, 72vw);
       }
 
       .cta-row {
@@ -412,31 +456,31 @@
   <div class="page" id="top">
     <header class="nav">
       <div class="brand">
-        <img src="images/projects/quiz-brain/quiz-brain-logo.png" alt="Quiz Brain Logo" class="brand-mark" />
+        <img src="/images/projects/quiz-brain/quiz-brain-logo.png" alt="Quiz Brain logo" class="brand-mark">
         <div class="brand-copy">
           <strong>Quiz Brain</strong>
-          <span>General knowledge with a cleaner, sharper feel.</span>
+          <span>Fast trivia rounds with a cleaner replay loop.</span>
         </div>
       </div>
       <nav class="nav-links">
-        <a href="#why">Why You'll Like It</a>
-        <a href="#shots">Screens</a>
+        <a href="#features">Features</a>
+        <a href="#screens">Screens</a>
         <a href="#download">Download</a>
       </nav>
     </header>
 
     <section class="hero">
       <div class="hero-copy glass">
-        <div class="eyebrow">Quick rounds • Better trivia • Made to replay</div>
-        <h1>A quiz app that actually feels good to use.</h1>
+        <div class="eyebrow">General knowledge • Flexible rounds • Replayable</div>
+        <h1>Trivia that stays quick, clear, and smooth.</h1>
         <p class="lead">
-          Quiz Brain gives you fast, satisfying quiz rounds with better presentation, clear categories, varied difficulty, and a smooth flow that makes it easy to keep going.
+          Quiz Brain is built for players who want short quiz sessions, clean feedback, and enough variety to keep another round feeling worthwhile.
         </p>
 
         <div class="hero-points">
-          <div>Pick a category or jump into a mixed round.</div>
-          <div>Choose how long you want to play.</div>
-          <div>See instant feedback and keep building your streak.</div>
+          <div>Choose a category or jump into a mixed round.</div>
+          <div>Set a session length that fits the time you have.</div>
+          <div>Track your streak and keep improving between rounds.</div>
         </div>
 
         <div class="cta-row">
@@ -453,104 +497,86 @@
               alt="Download on the App Store"
             >
           </a>
-          <a class="button-ghost" href="#shots">See The Screens</a>
+          <a class="button-ghost" href="#screens">Browse screens</a>
         </div>
       </div>
 
       <div class="hero-visual glass">
         <div class="phone-stack">
           <div class="shot one">
-            <img src="Simulator%20Screenshot%20-%20iPhone%2017%20-%202026-04-24%20at%2022.28.55.png" alt="Quiz Brain home screen showing categories and round setup">
+            <img src="/images/archive/simulator/Simulator%20Screenshot%20-%20iPhone%2017%20-%202026-04-24%20at%2022.28.55.png" alt="Quiz Brain home screen showing categories and round setup">
           </div>
           <div class="shot two">
-            <img src="Simulator%20Screenshot%20-%20iPhone%2017%20-%202026-04-24%20at%2022.29.03.png" alt="Quiz Brain question screen with answers and score">
+            <img src="/images/archive/simulator/Simulator%20Screenshot%20-%20iPhone%2017%20-%202026-04-24%20at%2022.29.03.png" alt="Quiz Brain question screen with answer choices and score">
           </div>
           <div class="shot three">
-            <img src="Simulator%20Screenshot%20-%20iPhone%2017%20-%202026-04-24%20at%2022.30.19.png" alt="Quiz Brain round completion screen">
+            <img src="/images/archive/simulator/Simulator%20Screenshot%20-%20iPhone%2017%20-%202026-04-24%20at%2022.30.19.png" alt="Quiz Brain round completion screen">
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="why">
+    <section class="section" id="features">
       <div class="section-header">
         <div>
-          <h2>Made for people who want a quick, polished quiz.</h2>
+          <h2>Designed around the actual play loop.</h2>
         </div>
         <p>
-          It keeps the good part of quiz apps, answering questions, and removes a lot of the clunky feel around it.
+          The app focuses on getting you into a round quickly, keeping the question view readable, and making results feel immediate.
         </p>
       </div>
 
       <div class="features">
         <article class="feature-card">
           <div class="icon gold">01</div>
-          <h3>Easy to jump into</h3>
-          <p>Choose a category, choose a round length, and start. No clutter, no waiting around.</p>
+          <h3>Start fast</h3>
+          <p>Choose a category and round length without digging through menus.</p>
         </article>
 
         <article class="feature-card">
           <div class="icon green">02</div>
-          <h3>Good mix of difficulty</h3>
-          <p>Rounds include easier wins, mid-level questions, and harder ones that keep things interesting.</p>
+          <h3>Stay engaged</h3>
+          <p>Questions, answer states, and scoring are easy to read in the moment.</p>
         </article>
 
         <article class="feature-card">
           <div class="icon blue">03</div>
-          <h3>Looks and feels smoother</h3>
-          <p>Dark gradients, bold cards, and clear answer feedback make the app feel more premium and less generic.</p>
+          <h3>Play flexibly</h3>
+          <p>Short sessions and longer runs both work, depending on how much time you have.</p>
         </article>
 
         <article class="feature-card">
-          <div class="icon pink">04</div>
-          <h3>Play your way</h3>
-          <p>Go for 5 questions, 10, 20, or a longer unlimited session depending on how much time you have.</p>
-        </article>
-
-        <article class="feature-card">
-          <div class="icon purple">05</div>
-          <h3>Track your progress</h3>
-          <p>Keep building your streak and watch your accuracy improve over time.</p>
-        </article>
-
-        <article class="feature-card">
-          <div class="icon orange">06</div>
-          <h3>More variety, less repetition</h3>
-          <p>With a larger question bank across multiple categories, rounds feel fresher and less predictable.</p>
+          <div class="icon purple">04</div>
+          <h3>Come back for another round</h3>
+          <p>Stats and streaks give the app a clear reason to replay instead of feeling one-and-done.</p>
         </article>
       </div>
     </section>
 
-    <section class="section" id="shots">
+    <section class="section" id="screens">
       <div class="section-header">
         <div>
-          <h2>See it in action.</h2>
+          <h2>From category selection to results.</h2>
         </div>
         <p>
-          Clean setup, strong question screens, and a finish that makes you want one more round.
+          Browse the key screens for starting a round, answering questions, reviewing results, and checking your stats.
         </p>
       </div>
 
-      <div class="gallery">
-        <div class="gallery-card">
-          <div class="screenshot-card">
-            <img src="Simulator%20Screenshot%20-%20iPhone%2017%20-%202026-04-24%20at%2022.28.55.png" alt="Home screen with categories and quiz setup">
-          </div>
-        </div>
-        <div class="gallery-card">
-          <div class="screenshot-card">
-            <img src="Simulator%20Screenshot%20-%20iPhone%2017%20-%202026-04-24%20at%2022.29.03.png" alt="Question screen with category, difficulty, and answer choices">
-          </div>
-        </div>
-        <div class="gallery-card">
-          <div class="screenshot-card">
-            <img src="Simulator%20Screenshot%20-%20iPhone%2017%20-%202026-04-24%20at%2022.30.19.png" alt="Round completion screen">
-          </div>
-        </div>
-        <div class="gallery-card">
-          <div class="screenshot-card">
-            <img src="Simulator%20Screenshot%20-%20iPhone%2017%20-%202026-04-24%20at%2022.30.40.png" alt="Statistics view in Quiz Brain">
-          </div>
+      <div class="shots-wrap">
+        <div class="shot-grid" aria-label="Quiz Brain screenshots">
+          <figure class="shot gallery-shot screenshot-card">
+            <img src="/images/archive/simulator/Simulator%20Screenshot%20-%20iPhone%2017%20-%202026-04-24%20at%2022.28.55.png" alt="Quiz Brain home screen with categories and quiz setup">
+          </figure>
+          <figure class="shot gallery-shot screenshot-card">
+            <img src="/images/archive/simulator/Simulator%20Screenshot%20-%20iPhone%2017%20-%202026-04-24%20at%2022.29.03.png" alt="Quiz Brain question screen with category, difficulty, and answer choices">
+          </figure>
+          <figure class="shot gallery-shot screenshot-card">
+            <img src="/images/archive/simulator/Simulator%20Screenshot%20-%20iPhone%2017%20-%202026-04-24%20at%2022.30.19.png" alt="Quiz Brain round completion screen">
+          </figure>
+          <figure class="shot gallery-shot screenshot-card">
+            <img src="/images/archive/simulator/Simulator%20Screenshot%20-%20iPhone%2017%20-%202026-04-24%20at%2022.30.40.png" alt="Quiz Brain statistics view">
+          </figure>
         </div>
       </div>
     </section>
@@ -558,26 +584,34 @@
     <section class="footer-card" id="download">
       <div>
         <div class="eyebrow">Download</div>
-        <h2>Pick a category. Start a round. See how far your streak goes.</h2>
+        <h2>Built for quick sessions and repeat play.</h2>
         <p>
-          Quiz Brain is built for quick sessions, repeat play, and a better overall quiz experience.
+          Quiz Brain is designed for short rounds, clear feedback, and enough variety to keep each session worth replaying.
         </p>
       </div>
 
-      <a
-        class="store-link"
-        href="https://apps.apple.com/gb/app/quiz-brain-general-knowledge/id6749145692"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Download Quiz Brain on the App Store"
-      >
-        <img
-          class="store-badge"
-          src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
-          alt="Download on the App Store"
+      <div class="cta-row">
+        <a
+          class="store-link"
+          href="https://apps.apple.com/gb/app/quiz-brain-general-knowledge/id6749145692"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Download Quiz Brain on the App Store"
         >
-      </a>
+          <img
+            class="store-badge"
+            src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+            alt="Download on the App Store"
+          >
+        </a>
+        <a class="button-ghost" href="/index.html#portfolio">Back to portfolio</a>
+      </div>
     </section>
+
+    <footer>
+      <p>Quiz Brain • General knowledge trivia for iPhone</p>
+      <p>© 2026 Aayan Aboobakar</p>
+    </footer>
   </div>
 </body>
 </html>

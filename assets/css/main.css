@@ -2038,7 +2038,7 @@ input, select, textarea {
 
 	/* Top navigation - use flex so we can pin the first item left */
 	#nav {
-		background-color: #282828;
+		background-color: #2c3741;
 		position: fixed;
 		left: 0;
 		top: 0;
@@ -2095,11 +2095,11 @@ input, select, textarea {
 
 			#nav a:hover {
 				color: #fff !important;
-				background: #383838;
+				background: rgba(255, 255, 255, 0.08);
 			}
 
 			#nav a.active {
-				background: #484848;
+				background: rgba(255, 255, 255, 0.12);
 			}
 
 				#nav a.active:before {
@@ -2259,7 +2259,7 @@ input, select, textarea {
 		/* Basic */
 
 			body {
-				padding-top: 44px;
+				padding-top: 58px;
 			}
 
 			body, input, textarea, select {
@@ -2404,12 +2404,12 @@ input, select, textarea {
 		/* Nav */
 
 			#nav {
-				height: 44px;
-				line-height: 44px;
+				height: 58px;
+				line-height: 58px;
 			}
 
 				#nav a {
-					padding: 0 0.75em;
+					padding: 0 0.95em;
 					height: inherit;
 					line-height: inherit;
 					border-radius: 0;
@@ -2502,7 +2502,7 @@ html {
 	#nav {
 		height: auto;
 		line-height: 1;
-		padding: 0.45rem 0;
+		padding: 0.8rem 0;
 	}
 
 	#nav ul {
@@ -2510,7 +2510,8 @@ html {
 		justify-content: flex-start;
 		flex-wrap: nowrap;
 		overflow-x: auto;
-		padding: 0 0.25rem;
+		padding: 0 0.5rem;
+		gap: 0.15rem;
 		-ms-overflow-style: none;
 		scrollbar-width: none;
 	}
@@ -2526,12 +2527,20 @@ html {
 
 	#nav a {
 		white-space: nowrap;
+		height: 2.9em;
+		line-height: 2.9em;
 	}
 }
 
 /* Hero */
+#top.wrapper.style1 {
+	background:
+		radial-gradient(circle at top right, rgba(67, 179, 224, 0.18), transparent 32%),
+		radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.9), rgba(244, 247, 250, 0.95));
+}
+
 .hero-header {
-	margin: 2.25em 0 1em;
+	margin: 1em 0 1em;
 	text-align: left;
 }
 
@@ -2556,15 +2565,70 @@ html {
 	max-width: 34em;
 }
 
+.hero-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	margin-top: 2rem;
+}
+
+.hero-cta {
+	background: linear-gradient(135deg, #2c3741, #3f5362);
+	box-shadow: 0 14px 30px rgba(44, 55, 65, 0.18);
+	border-radius: 999px;
+	letter-spacing: 0.04em;
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
+
+.hero-cta:hover {
+	background: linear-gradient(135deg, #364552, #4a6273);
+}
+
+.hero-highlights {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 1rem;
+	margin-top: 2.25rem;
+	max-width: 42rem;
+}
+
+.hero-highlight {
+	padding: 1rem 1.1rem;
+	border-radius: 18px;
+	background: rgba(255, 255, 255, 0.66);
+	border: 1px solid rgba(67, 179, 224, 0.12);
+	box-shadow: 0 16px 30px rgba(31, 58, 75, 0.08);
+}
+
+.hero-highlight-value {
+	display: block;
+	color: #2c3c49;
+	font-size: 1.35rem;
+	font-weight: 700;
+	line-height: 1.15;
+}
+
+.hero-highlight-label {
+	display: block;
+	margin-top: 0.35rem;
+	color: #61717c;
+	font-size: 0.92rem;
+	line-height: 1.45;
+}
+
 .profile-image {
 	display: block;
 	margin: 0 auto;
+	max-width: 24rem;
 }
 
 .profile-image img {
 	object-fit: cover;
 	width: 100%;
 	height: 100%;
+	border-radius: 28px;
+	box-shadow: 0 24px 50px rgba(31, 58, 75, 0.16);
 }
 
 @media screen and (max-width: 980px) {
@@ -2583,6 +2647,15 @@ html {
 		margin-left: auto;
 		margin-right: auto;
 	}
+
+	.hero-actions {
+		justify-content: center;
+	}
+
+	.hero-highlights {
+		margin-left: auto;
+		margin-right: auto;
+	}
 }
 
 @media screen and (max-width: 480px) {
@@ -2593,31 +2666,116 @@ html {
 	.hero-lead {
 		font-size: 1rem;
 	}
+
+	.hero-actions {
+		flex-direction: column;
+	}
+
+	.hero-actions .button {
+		width: 100%;
+	}
+
+	.hero-highlights {
+		grid-template-columns: 1fr;
+	}
 }
 
 /* About / project box spacing */
 .about-box {
 	text-align: left;
+	padding: 2.5rem 3rem 3rem;
+	border-radius: 24px;
+	box-shadow: 0 22px 45px rgba(31, 58, 75, 0.08);
 }
 
 .about-box p:last-of-type {
 	margin-bottom: 2.5em;
 }
 
+.about-kicker {
+	margin: 0;
+	color: #3e3e3e;
+	font-size: 1.15rem;
+	font-weight: 600;
+}
+
 .project-box {
 	height: 100%;
 	display: flex;
 	flex-direction: column;
+	padding: 1.9rem 1.45rem 1.55rem !important;
+	border-radius: 22px;
+	overflow: hidden;
+	box-shadow: 0 18px 40px rgba(24, 38, 48, 0.08);
+	transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.project-box .image.featured {
+	position: static;
+	left: auto;
+	top: auto;
+	width: 100%;
+	margin: 0 0 1rem 0;
 }
 
 .project-box p {
-	margin-bottom: 0;
+	margin-bottom: 0.4rem;
+	font-size: 0.95rem;
+	line-height: 1.65;
 }
 
 .project-box .image.featured img {
 	aspect-ratio: 16 / 10;
 	object-fit: cover;
 	width: 100%;
+	object-position: center top;
+	border-radius: 16px;
+}
+
+.fisca-project-box .image.featured img {
+	object-fit: contain;
+	object-position: center;
+}
+
+.project-box:hover {
+	transform: translateY(-6px);
+	box-shadow: 0 24px 50px rgba(24, 38, 48, 0.12);
+}
+
+.project-box h3 {
+	min-height: 3.1em;
+}
+
+.project-grid {
+	justify-content: center;
+}
+
+@media screen and (min-width: 981px) {
+	.project-grid > * {
+		max-width: 31rem;
+	}
+}
+
+@media screen and (max-width: 736px) {
+	.project-box {
+		padding: 1.15rem 0.95rem 1rem !important;
+		border-radius: 18px;
+	}
+
+	.project-box h3 {
+		min-height: 0;
+		font-size: 1.05rem;
+		line-height: 1.35;
+	}
+
+	.project-box p {
+		font-size: 0.86rem;
+		line-height: 1.5;
+	}
+
+	.project-box .image.featured {
+		margin-bottom: 0.8rem;
+	}
 }
 
 /* Timeline */
@@ -2706,6 +2864,10 @@ html {
 }
 
 @media screen and (max-width: 736px) {
+	.about-box {
+		padding: 1.75rem 1.35rem 2rem;
+	}
+
 	.timeline {
 		gap: 1.25rem;
 	}
@@ -2808,6 +2970,9 @@ html {
 #contact.wrapper.style4 {
 	padding-top: 3.5em;
 	padding-bottom: 3.5em;
+	background:
+		linear-gradient(135deg, rgba(22, 30, 37, 0.96), rgba(45, 59, 70, 0.92)),
+		url("images/bg.png");
 }
 
 #contact .contact-section {
@@ -2856,11 +3021,11 @@ html {
 	justify-content: space-between;
 	align-items: center;
 	gap: 1rem;
-	background: rgba(255, 255, 255, 0.03);
-	padding: 0.9rem 1rem;
-	border-radius: 8px;
-	border: 1px solid rgba(255, 255, 255, 0.03);
-	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25) inset;
+	background: rgba(255, 255, 255, 0.05);
+	padding: 1.05rem 1.15rem;
+	border-radius: 18px;
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 18px 40px rgba(0, 0, 0, 0.14);
 }
 
 #contact .contact-row + .contact-row {
@@ -2935,6 +3100,14 @@ html {
 #contact .open-link:hover,
 #contact .copy-btn:hover {
 	background: #555;
+}
+
+#contact .cv-row .subtitle {
+	margin-bottom: 0;
+}
+
+#contact .contact-download-icon {
+	text-decoration: none;
 }
 
 #contact .copy-btn {
