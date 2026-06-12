@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAE Credit Card Benefits Comparison Dashboard</title>
+    <style>
+        :root {
+            --primary-dark: #0f172a;
+            --secondary-dark: #1e293b;
+            --accent-blue: #2563eb;
+            --accent-hover: #1d4ed8;
+            --bg-light: #f1f5f9;
+            --card-bg: rgba(255, 255, 255, 0.88);
+            --border-color: #dbe3ee;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --na-color: #94a3b8;
+            --na-bg: #f8fafc;
+            --highlight-bg: #fde68a;
+            --highlight-text: #854d0e;
+            --shadow-lg: 0 24px 70px rgba(15, 23, 42, 0.12);
+            --shadow-md: 0 14px 35px rgba(15, 23, 42, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 32%),
+                radial-gradient(circle at top right, rgba(15, 23, 42, 0.08), transparent 28%),
+                linear-gradient(180deg, #f8fbff 0%, var(--bg-light) 100%);
+            color: var(--text-main);
+            line-height: 1.5;
+            min-height: 100vh;
+            padding: 1.25rem;
+        }
+
+        .page-shell {
+            max-width: 1480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        header {
+            margin-bottom: 1rem;
+            padding: 1.5rem 1.5rem 0.5rem;
+        }
+
+        .hero {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .hero-copy {
+            flex: 1 1 420px;
+        }
+
+        h1 {
+            font-size: clamp(1.6rem, 2.2vw, 2.35rem);
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-note {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            max-width: 62ch;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            text-decoration: none;
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary-dark));
+            padding: 0.78rem 1rem;
+            border-radius: 999px;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .back-link:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .page-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.7rem 0.95rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.76);
+            border: 1px solid rgba(148, 163, 184, 0.28);
+            color: var(--text-main);
+            font-size: 0.92rem;
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 560px;
+            margin-bottom: 1rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.9rem 1rem 0.9rem 2.7rem;
+            font-size: 0.95rem;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 213, 0.15);
+        }
+
+        .benefit-picker {
+            margin: 0.25rem 0 1rem;
+            padding: 1rem;
+            border: 1px solid rgba(219, 227, 238, 0.95);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.76);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+        }
+
+        .benefit-picker-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.9rem;
+            flex-wrap: wrap;
+        }
+
+        .benefit-picker-title {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .benefit-picker-note {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .benefit-picker-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .picker-button {
+            border: 1px solid rgba(148, 163, 184, 0.28);
+            background: #ffffff;
+            color: var(--primary-dark);
+            border-radius: 999px;
+            padding: 0.55rem 0.85rem;
+            font-size: 0.86rem;
+            cursor: pointer;
+            transition: background 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+        }
+
+        .picker-button:hover {
+            transform: translateY(-1px);
+            border-color: rgba(37, 99, 235, 0.35);
+        }
+
+        .benefit-checkboxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .benefit-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.65rem 0.75rem;
+            border-radius: 12px;
+            border: 1px solid rgba(219, 227, 238, 0.95);
+            background: rgba(248, 250, 252, 0.82);
+            font-size: 0.88rem;
+            color: var(--text-main);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .benefit-checkbox input {
+            accent-color: var(--accent-blue);
+            flex: 0 0 auto;
+        }
+
+        .benefit-checkbox span {
+            line-height: 1.2;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.85rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .table-container {
+            width: 100%;
+            margin: 0 auto;
+            overflow-x: auto;
+            background-color: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(219, 227, 238, 0.95);
+        }
+
+        table {
+            width: 100%;
+            min-width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            text-align: left;
+            font-size: 0.84rem;
+            table-layout: fixed;
+        }
+
+        th {
+            background-color: var(--primary-dark);
+            color: #ffffff;
+            padding: 0.9rem 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 2px solid var(--secondary-dark);
+            letter-spacing: 0.01em;
+        }
+
+        th:first-child {
+            position: sticky;
+            left: 0;
+            z-index: 12;
+            background-color: var(--primary-dark);
+        }
+
+        td {
+            padding: 1rem 0.9rem;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+            min-width: 180px;
+            max-width: none;
+            background-color: rgba(255, 255, 255, 0.8);
+            transition: background-color 0.15s;
+            word-break: break-word;
+        }
+
+        td:first-child {
+            position: sticky;
+            left: 0;
+            z-index: 8;
+            background-color: #f8fafc;
+            font-weight: 600;
+            border-right: 2px solid var(--border-color);
+            min-width: 220px;
+            max-width: 220px;
+        }
+
+        tr:hover td {
+            background-color: #eef4fb;
+        }
+
+        tr:hover td:first-child {
+            background-color: #e2e8f0;
+        }
+
+        .card-link {
+            color: var(--accent-blue);
+            text-decoration: none;
+            transition: color 0.15s;
+            display: block;
+        }
+
+        .card-link:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        .benefit-cell {
+            cursor: pointer;
+        }
+
+        .benefit-cell .cell-summary {
+            display: block;
+            line-height: 1.55;
+            max-width: 28ch;
+        }
+
+        .benefit-cell.na-cell {
+            color: var(--na-color);
+            font-style: italic;
+            background-color: var(--na-bg);
+            cursor: default;
+        }
+
+        .benefit-ul {
+            list-style-type: none;
+        }
+
+        .benefit-li {
+            position: relative;
+            padding-left: 0.75rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .benefit-li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        .na-cell .benefit-li::before {
+            color: var(--na-color);
+        }
+
+        mark.highlight {
+            background-color: var(--highlight-bg);
+            color: var(--highlight-text);
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        /* Modal Layout */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-container {
+            background-color: #ffffff;
+            border-radius: 20px;
+            width: min(92vw, 760px);
+            max-height: 88vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            transform: scale(0.95);
+            transition: transform 0.25s ease;
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 1.35rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary-dark));
+            color: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .modal-subtitle {
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.15s;
+            line-height: 1;
+        }
+
+        .modal-close-btn:hover {
+            opacity: 1;
+        }
+
+        .modal-body {
+            padding: 1.35rem 1.5rem 1.5rem;
+        }
+
+        .modal-section {
+            margin-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.25rem;
+        }
+
+        .modal-section:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .modal-section-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.35rem;
+            font-weight: 600;
+        }
+
+        .modal-section.lead-section {
+            background: #f8fbff;
+            border: 1px solid #e5eef9;
+            border-radius: 14px;
+            padding: 1rem 1rem 0.9rem;
+        }
+
+        .modal-section-content {
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .na-modal-msg {
+            text-align: center;
+            color: var(--na-color);
+            font-style: italic;
+            padding: 2rem 0;
+        }
+
+        .empty-state-cell {
+            padding: 2rem 1rem;
+            text-align: center;
+            color: var(--text-muted);
+            background: rgba(248, 250, 252, 0.92);
+        }
+
+        .empty-state-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 0.35rem;
+        }
+
+        .empty-state-copy {
+            font-size: 0.92rem;
+        }
+
+        @media (max-width: 960px) {
+            body {
+                padding: 0.75rem;
+            }
+
+            header {
+                padding: 1.15rem 0.9rem 0.5rem;
+            }
+
+            .hero {
+                gap: 0.85rem;
+            }
+
+            .hero-actions {
+                width: 100%;
+            }
+
+            .back-link,
+            .page-chip {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .table-container {
+                border-radius: 16px;
+            }
+
+            .benefit-picker {
+                padding: 0.85rem;
+            }
+
+            .benefit-checkboxes {
+                grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
+            }
+
+            table {
+                min-width: 1200px;
+            }
+
+            td {
+                min-width: 170px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 0.5rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero-copy {
+                flex-basis: 100%;
+            }
+
+            .search-input {
+                font-size: 1rem;
+            }
+
+            .table-container {
+                box-shadow: 0 18px 45px rgba(15, 23, 42, 0.1);
+            }
+
+            .modal-container {
+                width: min(94vw, 760px);
+                max-height: 90vh;
+                border-radius: 18px;
+            }
+
+            .modal-header,
+            .modal-body {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="page-shell">
+    <header>
+        <div class="hero">
+            <div class="hero-copy">
+                <h1>UAE Credit Card Benefits</h1>
+                <p class="hero-note">Search the comparison table for a quick view, then open any cell for a fuller breakdown.</p>
+            </div>
+            <div class="hero-actions">
+                <a class="back-link" href="index.html#portfolio">Back to portfolio</a>
+                <div class="page-chip">Tap any benefit for details</div>
+            </div>
+        </div>
+        
+        <div class="search-container">
+            <span class="search-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </span>
+            <input type="text" id="searchBar" class="search-input" placeholder="Search lounge, cashback, insurance, golf, or any bank">
+        </div>
+
+        <section class="benefit-picker" aria-labelledby="benefit-picker-title">
+            <div class="benefit-picker-header">
+                <div>
+                    <div id="benefit-picker-title" class="benefit-picker-title">Choose benefits to display</div>
+                    <div class="benefit-picker-note">Start with an empty table, then tick the benefits you want to compare.</div>
+                </div>
+                <div class="benefit-picker-actions">
+                    <button type="button" id="selectAllBtn" class="picker-button">Select all</button>
+                    <button type="button" id="clearAllBtn" class="picker-button">Clear all</button>
+                </div>
+            </div>
+            <div id="benefitCheckboxes" class="benefit-checkboxes"></div>
+        </section>
+    </header>
+
+    <div class="table-container">
+        <table id="comparisonTable">
+            <thead id="tableHead"></thead>
+            <tbody id="tableBody">
+                </tbody>
+        </table>
+    </div>
+
+    <div id="benefitModal" class="modal-overlay">
+        <div class="modal-container">
+            <button id="modalClose" class="modal-close-btn">&times;</button>
+            <div class="modal-header">
+                <div id="mCardName" class="modal-title">Card Name</div>
+                <div id="mBenefitType" class="modal-subtitle">Benefit Type</div>
+            </div>
+            <div id="modalBody" class="modal-body">
+                </div>
+        </div>
+    </div>
+    </main>
+
+    <script>
+        // Verified database structure matching exact sorting requirements and column architecture
+        const cardsData = [
+            {
+                bank: "FAB",
+                name: "FAB World Elite Mastercard",
+                url: "https://www.bankfab.com/en-ae/personal/cards/credit-cards/world-elite-card",
+                benefits: {
+                    lounge: "Lounge Access — Mastercard LoungeKey structural access asset — Present card physically or digitally at portal — Unlimited access lines for cardholder and one additional guest per visit",
+                    transfers: "Airport Transfers — Careem executive airport platform deployment — Input native promotional token inside application — Maximum usage allocation mapped at 4 transfers per calendar cycle",
+                    insurance: "Travel Insurance — Multi-trip premium international coverage protection — Purchase flight itinerary fully utilizing card asset — Maximum global scale allocation bounded at USD 500,000",
+                    hotel: "Hotel Benefits — Mastercard Luxury Hotels asset ecosystem — Execute itinerary deployment via Mastercard advisor line — Room tier upgrades validation and late checkout options map dynamically",
+                    airline: "Airline Benefits — Cleartrip digital travel booking optimization — Process checkout framework utilizing targeted portal token — Up to 30% baseline flight optimization value boundaries",
+                    dining: "Dining Benefits — Mastercard Buy 1 Get 1 premium application catalog — Download and activate individual profile via official application store — Unlimited validation occurrences across aligned international merchant networks",
+                    cashback: "N/A",
+                    rewards: "Rewards & Loyalty Programs — FAB Miles proprietary optimization mechanism — Calculate baseline retail and cross-border currency clearings — Direct conversions into partner carrier assets with no points expiry timelines",
+                    golf: "Golf Benefits — Premium course green fee waivers — Cross structural threshold criteria of AED 5,000 baseline spend monthly — 2 complimentary sessions per calendar cycle at premium UAE courses",
+                    fitness: "Fitness Benefits — Fitness First physical club access authorization — Maintain dynamic monthly banking spend verification metrics — Access tracking and validations mapped dynamically at club counters",
+                    concierge: "Concierge Services — World Elite 24/7 dedicated personal operational assistance — Contact regional or global communication hubs via direct hotline — Unlimited fulfillment processing for lifestyle, asset search, and tracking requests",
+                    entertainment: "Entertainment Benefits — VOX Cinemas screening ticket optimization — Purchase admission tickets via digital VOX framework or application pipeline — Up to 4 complimentary standard admission units allocation per statement loop",
+                    lifestyle: "Lifestyle Privileges — Avis premium global vehicle rental optimization — Register framework utilizing dedicated mastercard tier verification link — Up to 35% discount structures mapping onto global base leasing configurations",
+                    protection: "Insurance & Protection — Commercial purchase protection insurance asset — Execute full payment protocols on items using card tool — Up to USD 3,000 single incidence coverage tracking parameter thresholds",
+                    other: "Other Benefits — Global data roaming distribution packages — Register active card profile inside the Flexiroam deployment module — 3GB premium global data allowance allocated annually with no extra costs"
+                }
+            },
+            {
+                bank: "Mashreq",
+                name: "Mashreq Solitaire Credit Card",
+                url: "https://www.mashreq.com/en/uae/personal/cards/credit-cards/solitaire-credit-card",
+                benefits: {
+                    lounge: "Lounge Access — Visa Infinite structural LoungeKey asset distribution — Register profile on platform app or showcase card — Unlimited validation layers for cardholder plus single guest tracking internationally",
+                    transfers: "Airport Transfers — Careem premium airport transfer service — Accumulate minimum monthly statement values of AED 10,000 — 4 complimentary luxury transport allocations per billing year",
+                    insurance: "Travel Insurance — International multi-trip medical protection wrap — Complete transport scheduling steps with Solitaire payment gateway — Coverage ceiling limits designated up to USD 500,000",
+                    hotel: "Hotel Benefits — Visa Luxury Hotel Collection profile access — Finalize room tracking protocols via the Visa premium portal — Priority room adjustments, early checking verification, and complementary dining allocations",
+                    airline: "Airline Benefits — Strategic carrier structural promotional alignments — Process programmatic checkout actions during active seasonal profiles — Campaign dependent limits variable across active calendar windows",
+                    dining: "Dining Benefits — Mashreq Dine More merchant discount network — Present physical card or settle transaction using digital device — Up to 30% instant cost adjustment at premium domestic locations",
+                    cashback: "N/A",
+                    rewards: "Rewards & Loyalty Programs — Mashreq Salaam points optimization framework — Settle standard retail and currency conversion metrics — Flexible point redemptions map onto gift vouchers, travel operations, or retail modules",
+                    golf: "Golf Benefits — Elite local course green fee clearances — Realize minimum operational monthly card activity of AED 10,000 — 2 complimentary booking cycles per month tracking across select UAE infrastructure",
+                    fitness: "Fitness Benefits — Fitness First gym premium access passes — Validate minimum rolling monthly account turnover of AED 10,000 — Capped at maximum threshold boundary of 12 distinct admissions annually",
+                    concierge: "Concierge Services — Visa Infinite global 24/7 digital concierge layer — Connect through internet application panel or direct telephony channels — Non-capped task resolution allocations handling booking, reservations, and lifestyle requests",
+                    entertainment: "Entertainment Benefits — NOVO Cinemas admission price adjustments — Process transactions via online NOVO app or corporate website interface — Flat 50% discount modifier tracking up to 4 validation instances monthly",
+                    lifestyle: "Lifestyle Privileges — Marhaba airport Meet & Greet assistance processing — Generate minimum programmatic accounting spend of AED 10,000 monthly — 2 complimentary premium welcoming services per calendar cycle",
+                    protection: "Insurance & Protection — Extended warranty coverage acceleration asset — Pay for electronic hardware fully with Solitaire card instrument — Multiplies baseline manufacturer warranty timeline by 2x scaling up to 1 year",
+                    other: "Other Benefits — Premium private yacht leasing cost optimization — Request booking access protocols via corporate service representative framework — Specific preferential rate matrices mapped onto luxury marine charters"
+                }
+            },
+            {
+                bank: "Emirates NBD",
+                name: "Emirates NBD dnata World Mastercard",
+                url: "https://www.emiratesnbd.com/en/cards/credit-cards/dnata-world-mastercard",
+                benefits: {
+                    lounge: "Lounge Access — Global LoungeKey airport ecosystem inclusion — Present physical card to attendant inside participating facilities — Non-capped complementary entry tracking for the primary user plus one guest",
+                    transfers: "Airport Transfers — Private premium airport terminal transport networks — Contact concierge booking desk minimum 48 hours before transit — 4 complimentary airport transit deployments allocated per active year",
+                    insurance: "Travel Insurance — Multi-trip travel delay, accident and medical security package — Purchase travel tickets using the dnata World card framework — Maximum programmatic insurance validation tracking up to USD 500,000",
+                    hotel: "Hotel Benefits — Mastercard Luxury Hotels & Resorts collection access — Process booking mechanics via the dedicated Mastercard travel desk — Complimentary room level adjustments, free breakfast units, and late logout options",
+                    airline: "Airline Benefits — dnata Travel network priority earn structures — Settle payments directly inside dnata Travel physical or digital hubs — Earn up to 15% reward optimization metrics on programmatic travel purchases",
+                    dining: "Dining Benefits — Emirates NBD Bon Appetit reward program — Settle restaurant bills with the physical or digital card asset — Up to 30% savings tracking across broad networks of premium UAE restaurants",
+                    cashback: "N/A",
+                    rewards: "Rewards & Loyalty Programs — Proprietary dnata Points calculation algorithm — Settle retail, utility, and cross-border transactions using card — Points instantly spendable directly at dnata Travel merchant terminals",
+                    golf: "Golf Benefits — Complementary local premium golf access rights — Achieve minimum card monthly retail expenditure tracking of AED 5,000 — 2 complimentary rounds per month across specific elite UAE courses",
+                    fitness: "N/A",
+                    concierge: "Concierge Services — ENBD Local & Global Concierge lifestyle operational team — Dial targeted internal bank communication channel lines — Unlimited access to booking requests, event access validations, and routing coordination",
+                    entertainment: "Entertainment Benefits — VOX Cinemas buy 1 get 1 screening benefits — Complete ticketing purchases via the VOX digital client interfaces — Up to 4 complimentary standard admission vouchers per statement loop",
+                    lifestyle: "Lifestyle Privileges — Marhaba Premium Lounge access structural privilege — Present valid card profile at Dubai International Airport lounges — Unlimited priority entry options mapping to primary card operator",
+                    protection: "Insurance & Protection — Retail purchase protection plan integration — Pay for consumer goods fully utilizing card asset mechanism — Bounded up to maximum global target limits of USD 5,000 annually",
+                    other: "Other Benefits — Dubai Duty Free retail instant savings layer — Settle point-of-sale invoices inside global airport terminal zones — 10% direct price optimization tracking on premium retail selections"
+                }
+            },
+            {
+                bank: "Emirates NBD",
+                name: "Emirates NBD SHARE Visa Signature Credit Card",
+                url: "https://www.emiratesnbd.com/en/cards/credit-cards/share-visa-signature-card",
+                benefits: {
+                    lounge: "Lounge Access — Global LoungeKey network validation tracking — Execute minimum international token transaction value of USD 1 — 12 complimentary lounge visits per year tracking for cardholder only",
+                    transfers: "N/A",
+                    insurance: "Travel Insurance — International travel medical emergency insurance asset — Settle regional and global transit costs through the card portal — Global coverage tracking up to ceiling amounts of USD 500,000",
+                    hotel: "Hotel Benefits — Visa Luxury Hotel structural collection profile — Confirm booking operations inside official Visa Signature hotel portal — Preferential baseline rates, space-available room upgrades, and continental breakfast access",
+                    airline: "N/A",
+                    dining: "Dining Benefits — Majid Al Futtaim dining network point adjustment — Settle restaurant checks inside MAF commercial mall infrastructure — Automated access tiers to localized retail restaurant savings metrics",
+                    cashback: "Shopping Cashback — Programmatic SHARE points cashback multiplier engine — Settle invoices at Carrefour, VOX, or aligned MAF properties — Up to 7% back returned as live spendable SHARE points value matrix",
+                    rewards: "Rewards & Loyalty Programs — Majid Al Futtaim SHARE points aggregation platform — Process daily retail actions across domestic and international merchants — Redeem instantly for consumer purchases via the native digital SHARE app",
+                    golf: "N/A",
+                    fitness: "N/A",
+                    concierge: "Concierge Services — Visa Digital Concierge automated chat environment — Register account asset via the international Visa Signature web framework — 24/7 unlimited access lines for automated lifestyle support and booking help",
+                    entertainment: "Entertainment Benefits — VOX Cinemas admission discount allocation matrix — Process movie tickets via the internet app or website tool — 50% flat discount modifier applied up to 4 tickets per month",
+                    lifestyle: "Lifestyle Privileges — Majid Al Futtaim regional commercial mall valet parking — Hit minimum card monthly utilization performance benchmarks of AED 3,000 — 2 complimentary mall valet service occurrences per statement period",
+                    protection: "Insurance & Protection — Visa buyer protection commercial consumer framework — Execute items purchase action utilizing card transaction protocols — Protection parameters against sudden theft or unintentional material damage lines",
+                    other: "Other Benefits — Carrefour instant point acceleration bonus layers — Present card instrument at Carrefour UAE checkout terminals — Direct programmatic points upgrade tracking across all inventory items"
+                }
+            },
+            {
+                bank: "Emirates NBD",
+                name: "Emirates NBD Noon One Visa Credit Card",
+                url: "https://www.emiratesnbd.com/en/cards/credit-cards/noon-one-credit-card",
+                benefits: {
+                    lounge: "Lounge Access — Worldwide airport LoungeKey access pipeline — Complete minimum international transaction spend metrics of USD 1 — 10 complimentary airport lounge entry instances per calendar cycle",
+                    transfers: "N/A",
+                    insurance: "Travel Insurance — Basic Travel Shield accidental protection policy — Automatic activation protocols triggered upon active account creation steps — Structured standard baseline personal insurance coverage boundaries",
+                    hotel: "Hotel Benefits — Agoda global property booking discount engine — Finalize reservation steps utilizing dedicated corporate web links — Up to 12% off on baseline international hotel property stays",
+                    airline: "N/A",
+                    dining: "Dining Benefits — Noon Food application cost adjustment metrics — Process dining orders through the native Noon mobile interface — Unlimited access loops to free shipping rules or up to 20% menu discounts",
+                    cashback: "Shopping Cashback — Unlimited flat noon ecosystem digital cashback — Route spend through Noon, NowNow online, or Namshi platform — 5% unlimited flat cashback returned directly to user digital wallet",
+                    rewards: "Rewards & Loyalty Programs — Noon Balance currency credit distribution engine — Automated monthly calculation and posting onto personal profile — Unlimited financial generation tied to targeted ecosystem merchant clearings",
+                    golf: "N/A",
+                    fitness: "N/A",
+                    concierge: "N/A",
+                    entertainment: "Entertainment Benefits — Noon Minutes instant quick delivery tier access — Settle orders inside the Noon Minutes mobile framework — Unlimited access to free fast tracking delivery with zero minimum order thresholds",
+                    lifestyle: "Lifestyle Privileges — Complementary Noon One premium programmatic subscription — Maintain active card account state without defaults or suspensions — Complete waiver of monthly recurring membership subscription tariff lines",
+                    protection: "Insurance & Protection — Visa purchase secure digital transaction protection layer — Route online or brick-and-mortar retail actions using card — Programmatic protection loops checking for electronic fraud or identity manipulation",
+                    other: "Other Benefits = Welcome bonus balance sign-up incentive value — Execute initial financial card spend within 30 days from generation — Up to AED 500 one-time noon wallet credit injection into profile"
+                }
+            },
+            {
+                bank: "Emirates Islamic",
+                name: "Emirates Islamic Skywards Infinite Credit Card",
+                url: "https://www.emiratesislamic.ae/en/personal/cards/credit-cards/skywards-infinite-credit-card",
+                benefits: {
+                    lounge: "Lounge Access — Infinite level LoungeKey airport structural asset — Complete minimum international token transactions of USD 1 — Unlimited entries tracking for cardholder and single accompanying guest entity",
+                    transfers: "Airport Transfers — Marhaba premium airport silver lounge/transit processing — Maintain minimum monthly account retail spend metrics of AED 5,000 — 4 complimentary services mapped across active calendar years",
+                    insurance: "Travel Insurance — Multi-trip absolute global travel insurance framework — Complete flight ticket acquisition tasks utilizing card processing lines — Up to USD 1,000,000 absolute comprehensive coverage metrics",
+                    hotel: "Hotel Benefits — Visa Luxury Hotel dynamic collection portfolio — Process reservation actions directly through the Visa Infinite booking engine — Priority room asset class adjustment, breakfast access, and checking updates",
+                    airline: "Airline Benefits — Emirates Skywards Miles acceleration calculation engine — Book corporate or leisure flights via official Emirates channels — Earn up to 2 full Skywards Miles per USD spent tracking",
+                    dining: "Dining Benefits — Mazaya premium dining discount catalog network — Settle merchant point-of-sale invoices utilizing card infrastructure — Up to 30% price adjustment metrics tracking across UAE restaurant vendors",
+                    cashback: "N/A",
+                    rewards: "Rewards & Loyalty Programs — Emirates Skywards Frequent Flyer point system — Complete commercial domestic and international retail clearings with card — Points directly pipeline into primary connected Skywards frequent flyer account",
+                    golf: "Golf Benefits — Complementary elite local golf course usage privileges — Accumulate minimum monthly rolling account spend metrics of AED 10,000 — Unlimited weekday golf session allocations tracking across select UAE courses",
+                    fitness: "N/A",
+                    concierge: "Concierge Services — Visa Infinite 24/7 international lifestyle concierge grid — Reach operators via direct toll-free telephony or specialized app — Unlimited fulfillment paths handling transport tracking, dining reservations, and ticketing",
+                    entertainment: "Entertainment Benefits — Reel Cinemas admission buy 1 get 1 free program — Buy cinema tickets via the Reel digital website or client app — Up to 3 complimentary free admission units per month tracking bounds",
+                    lifestyle: "Lifestyle Privileges — Emirates Skywards Silver Tier frequent flyer status — Automatic processing triggers upon primary card authorization steps — Valid for 1 full continuous calendar year from activation point",
+                    protection: "Insurance & Protection — Extended warranty and purchase protection layer integration — Settle equipment costs fully via the card instrument pipeline — Multiplies warranty limits up to 1 extra year or USD 5,000 annually",
+                    other: "Other Benefits — Free domestic valet parking service networks — Cross minimum monthly card expenditure threshold metrics of AED 5,000 — 4 complimentary valet parking instances permitted monthly across select locations"
+                }
+            },
+            {
+                bank: "Emirates Islamic",
+                name: "Emirates Islamic Amazon Credit Card",
+                url: "https://www.emiratesislamic.ae/en/personal/cards/credit-cards/amazon-home",
+                benefits: {
+                    lounge: "N/A",
+                    transfers: "N/A",
+                    insurance: "Travel Insurance — Basic purchase protection travel accidental cover wrap — Automatic system inclusion initiated upon primary card usage activities — Standard baseline accident mitigation boundaries apply",
+                    hotel: "N/A",
+                    airline: "N/A",
+                    dining: "Dining Benefits — Mazaya generic lifestyle dining savings network — Present card at participating merchant point of sale systems — Discount percentages vary across specific locations and corporate branches",
+                    cashback: "Shopping Cashback — Amazon digital gift card points cashback algorithm — Settle electronic transactions on the official Amazon.ae store platform — Up to 3.75% cashback value index capped at AED 1,000 monthly",
+                    rewards: "Rewards & Loyalty Programs — Amazon.ae direct balance auto-conversion mechanics — Programmatic conversion of accumulated points at monthly statement closing — Balance links directly to the primary user Amazon profile",
+                    golf: "N/A",
+                    fitness: "N/A",
+                    concierge: "N/A",
+                    entertainment: "Entertainment Benefits — Amazon Prime promotional campaign access windows — Fulfill specific tactical card spend thresholds during marketing periods — Access parameters track variable campaign timelines dynamically",
+                    lifestyle: "Lifestyle Privileges — Free for Life absolute account structural state — Zero minimum annual spend metrics requirements to hold card — Lifetime guarantee of zero annual membership recurring fee lines",
+                    protection: "Insurance & Protection — Amazon web platform secure shopping assurance protocols — Pay using card interface parameters inside the Amazon ecosystem — Up to USD 2,000 per year structural fraud protection tracking",
+                    other: "Other Benefits — Zero percent internal split interest installment frameworks — Purchase shopping goods valuing over AED 500 on Amazon.ae store — Choice of 3 to 12 months split payment options with no added cost"
+                }
+            },
+            {
+                bank: "Citibank",
+                name: "Citibank Prestige Credit Card",
+                url: "https://www.citibank.ae/cards/credit-cards/prestige-card/",
+                benefits: {
+                    lounge: "Lounge Access — Global Priority Pass & LoungeKey absolute asset deployment — Showcase physical card asset or digital tracking app passport — Unlimited lounge visit occurrences for cardholder plus one accompanying guest tracking",
+                    transfers: "Airport Transfers — Complementary absolute luxury limousine or Careem transits — Schedule transport actions via concierge grid minimum 48 hours early — 4 premium elite transfer operations allocated per calendar cycle",
+                    insurance: "Travel Insurance — Comprehensive global travel health and delay protection — Settle complete transit booking values utilizing the Prestige card asset — Up to USD 500,000 medical emergency and baggage protection parameters",
+                    hotel: "Hotel Benefits — Complementary absolute 4th night hotel stay globally — Book minimum 4 consecutive nights via the Citibank concierge pipeline — Valid for exactly 2 booking cycles per individual calendar year",
+                    airline: "Airline Benefits — ThankYou Points international airline transfer flexibility matrix — Access rewards exchange module inside Citibank digital portal asset — Points fluidly transfer to over 15 partner frequent flyer programs",
+                    dining: "Dining Benefits — Citi Gourmet Pleasures premium hospitality discount matrix — Settle operational restaurant invoices using the Prestige card tool — Up to 20% cost adjustment tracking across elite dining venues",
+                    cashback: "N/A",
+                    rewards: "Rewards & Loyalty Programs — Citi ThankYou Points non-expiring loyalty algorithm — Complete domestic or global retail and international currency transactions — Non-expiring point asset accumulation structures track on account profiles",
+                    golf: "Golf Benefits — Complimentary elite golf course green fee clearances — Maintain active, non-delinquent card account profiling records — 1 complimentary round per month tracking across premium UAE golf clubs",
+                    fitness: "N/A",
+                    concierge: "Concierge Services — Citi Prestige 24/7 elite dedicated lifestyle manager desk — Connect with personal account management experts via direct telephone paths — Non-capped task management covering international travel tracking, booking, and acquisition",
+                    entertainment: "Entertainment Benefits — Global concert and performance ticket presale priority pipelines — Settle reservation actions using the Citibank card portal — Early access vectors map dynamically subject to master organizer terms",
+                    lifestyle: "Lifestyle Privileges — Global luxury lifestyle collection VIP club access cards — Present physical card asset inside partner leisure frameworks internationally — Elite level hospitality tier validation parameters tracking globally",
+                    protection: "Insurance & Protection — Purchase protection plus extended warranty insurance combo — Complete item transactions using card infrastructure fully — Standard Citibank corporate protection insurance terms apply dynamically",
+                    other: "Other Benefits — Account relationship milestone annual bonus point injection — Based on rolling annual spend levels and Citibank wealth management relationship — Calculated and credited onto profile at account anniversary loops"
+                }
+            },
+            {
+                bank: "HSBC",
+                name: "HSBC Premier Credit Card",
+                url: "https://www.hsbc.ae/credit-cards/products/premier/",
+                benefits: {
+                    lounge: "Lounge Access — Global LoungeKey premium airport structural asset — Primary and valid secondary supplementary card profiles hold equal access — Unlimited free airport lounge entry occurrences across global terminals",
+                    transfers: "Airport Transfers — Careem premium airport travel discount modifiers — Input application code UAEHSBC inside Careem digital device panel — 20% discount adjustment tracking up to 4 rides per month",
+                    insurance: "Travel Insurance — Multi-trip global travel health and accident insurance — Settle international transport costs utilizing the Premier card system — Up to USD 250,000 emergency medical validation tracking limits",
+                    hotel: "Hotel Benefits — Agoda and Expedia premium lodging optimization links — Execute bookings via customized HSBC corporate tracking web portals — Up to 12% instant value discount across global lodging options",
+                    airline: "Airline Benefits — Core airline frequent flyer loyalty program partnerships — Settle flights via specific portals or initialize points transfer steps — Dynamic campaign dependent optimization parameters track across seasonal windows",
+                    dining: "Dining Benefits — HSBC Entertainer premium mobile application access framework — Maintain active, non-restricted HSBC Premier banking tier profile state — Unlimited access to buy 1 get 1 free merchant vouchers",
+                    cashback: "N/A",
+                    rewards: "Rewards & Loyalty Programs — HSBC Air Miles proprietary loyalty tracking platform — Settle local and international consumer purchases via the card — Redeem miles points for air transit, hotel bookings, or retail vouchers",
+                    golf: "N/A",
+                    fitness: "N/A",
+                    concierge: "Concierge Services — HSBC Premier global lifestyle concierge service team — Request actions via the secure HSBC Premier digital customer portal — 24/7 unlimited fulfillment handling global travel, reservations, and ticketing",
+                    entertainment: "Entertainment Benefits — VOX Cinemas ticket buy 1 get 1 free program — Settle movie ticketing invoices inside VOX mobile app or website — Max 4 complimentary admission units per calendar statement loop",
+                    lifestyle: "Lifestyle Privileges — Global HSBC Premier network recognition and support matrix — Automatic tier validation across all global HSBC physical branches — Emergency emergency cash support processing globally if assets are lost",
+                    protection: "Insurance & Protection — Consumer purchase protection insurance wrap integration — Purchase target items fully using the card instrument — Insurance coverage against loss or damage within 90 days from purchase",
+                    other: "Other Benefits — Zero international account transfer processing fees framework — Execute digital cross-border asset transfers using HSBC online banking tools — Unlimited free transfer operations between personal global HSBC accounts"
+                }
+            },
+            {
+                bank: "Standard Chartered",
+                name: "Standard Chartered Journey Credit Card",
+                url: "https://www.sc.com/ae/credit-cards/journey-credit-card/",
+                benefits: {
+                    lounge: "Lounge Access — Worldwide airport LoungeKey structural access protocol — Primary card operators and supplementary profiles hold access permissions — Unlimited complimentary lounge visits across global airport infrastructure",
+                    transfers: "Airport Transfers — Careem premium airport terminal ride transport credits — Generate minimum monthly card retail clearings of AED 5,000 — 2 complimentary airport transport rides per calendar year",
+                    insurance: "Travel Insurance — Comprehensive international travel medical and delay insurance — Secure travel itineraries utilizing the Journey card platform tool — Up to USD 500,000 medical treatment and baggage loss cover",
+                    hotel: "Hotel Benefits — Booking.com international lodging value optimization system — Route booking actions through the dedicated SC partner web interface — Up to 10% direct cashback matching on global accommodation listings",
+                    airline: "Airline Benefits — One-to-one ratio points transfer to major airlines — Initialize points trade steps via the SC 360 rewards web module — Zero processing fees tracking when converting to premium frequent flyer miles",
+                    dining: "Dining Benefits — SC 360 Rewards hospitality dining optimization platform — Pay for restaurant invoices using the Journey card device — Exclusive cost adjustment percentages tracking across select regional eateries",
+                    cashback: "N/A",
+                    rewards: "Rewards & Loyalty Programs — Standard Chartered 360° Rewards points computation system — Process transactions tracking travel, fine dining, or foreign currencies — Redeem accumulated points directly for frequent flyer miles or statement credits",
+                    golf: "N/A",
+                    fitness: "N/A",
+                    concierge: "Concierge Services — Visa Infinite 24/7 digital personal assistant matrix — Connect through online interface panels or the dedicated concierge application — Unlimited fulfillment loops for international asset sourcing, reservations, and bookings",
+                    entertainment: "Entertainment Benefits — Costa Coffee buy 1 get 1 free beverage perk — Settle point-of-sale invoices using card at domestic retail outlets — Maximum allocation of 4 complimentary beverage items per calendar month",
+                    lifestyle: "Lifestyle Privileges — Marhaba Premium Lounge access within domestic UAE airports — Show card profile at Marhaba customer care reception counters — 12 complimentary lounge visits tracking per calendar year loop",
+                    protection: "Insurance & Protection — Medical wallet protection asset insurance coverage structure — File official security reports detailing wallet theft within 24 hours — Up to USD 1,000 operational tracking reimbursement protection limits",
+                    other: "Other Benefits — Zero percent foreign currency processing fee marketing promotions — Settle spend inside designated international shopping categories during active windows — Variable duration limits bound to active promotional campaign calendar frameworks"
+                }
+            }
+        ];
+
+        const keyMapping = [
+            "lounge", "transfers", "insurance", "hotel", "airline", "dining", 
+            "cashback", "rewards", "golf", "fitness", "concierge", 
+            "entertainment", "lifestyle", "protection", "other"
+        ];
+
+        const tableBody = document.getElementById('tableBody');
+        const tableHead = document.getElementById('tableHead');
+        const table = document.getElementById('comparisonTable');
+        const searchBar = document.getElementById('searchBar');
+        const modal = document.getElementById('benefitModal');
+        const modalClose = document.getElementById('modalClose');
+        const benefitCheckboxes = document.getElementById('benefitCheckboxes');
+        const selectAllBtn = document.getElementById('selectAllBtn');
+        const clearAllBtn = document.getElementById('clearAllBtn');
+        const columnLabels = {
+            lounge: 'Lounge',
+            transfers: 'Transfers',
+            insurance: 'Insurance',
+            hotel: 'Hotel',
+            airline: 'Airline',
+            dining: 'Dining',
+            cashback: 'Cashback',
+            rewards: 'Rewards',
+            golf: 'Golf',
+            fitness: 'Fitness',
+            concierge: 'Concierge',
+            entertainment: 'Entertainment',
+            lifestyle: 'Lifestyle',
+            protection: 'Protection',
+            other: 'Other'
+        };
+
+        let selectedBenefitKeys = [];
+
+        function splitBenefitText(rawString) {
+            return rawString
+                .split(/\s*(?:—|\|)\s*/)
+                .map(part => part.trim())
+                .filter(Boolean);
+        }
+
+        function summarizeBenefit(rawString) {
+            if (rawString === 'N/A') {
+                return 'N/A';
+            }
+
+            const parts = splitBenefitText(rawString);
+            if (parts.length === 0) {
+                return rawString;
+            }
+
+            if (parts.length === 1) {
+                return parts[0];
+            }
+
+            return `${parts[0]}: ${parts[1]}`;
+        }
+
+        function renderBenefitCheckboxes() {
+            benefitCheckboxes.innerHTML = '';
+
+            keyMapping.forEach((key) => {
+                const label = document.createElement('label');
+                label.className = 'benefit-checkbox';
+
+                const input = document.createElement('input');
+                input.type = 'checkbox';
+                input.value = key;
+                input.checked = selectedBenefitKeys.includes(key);
+                input.addEventListener('change', () => {
+                    if (input.checked) {
+                        if (!selectedBenefitKeys.includes(key)) {
+                            selectedBenefitKeys.push(key);
+                        }
+                    } else {
+                        selectedBenefitKeys = selectedBenefitKeys.filter((item) => item !== key);
+                    }
+                    renderTable(searchBar.value);
+                });
+
+                const text = document.createElement('span');
+                text.textContent = columnLabels[key] || key;
+
+                label.appendChild(input);
+                label.appendChild(text);
+                benefitCheckboxes.appendChild(label);
+            });
+        }
+
+        function renderTableHeader() {
+            const headers = ['Card', ...selectedBenefitKeys.map((key) => columnLabels[key] || key)];
+            tableHead.innerHTML = '';
+
+            const tr = document.createElement('tr');
+            headers.forEach((headerText) => {
+                const th = document.createElement('th');
+                th.textContent = headerText;
+                tr.appendChild(th);
+            });
+
+            tableHead.appendChild(tr);
+        }
+
+        // Render the matrix dynamically based on search terms
+        function renderTable(filterTerm = '') {
+            renderTableHeader();
+            tableBody.innerHTML = '';
+            const cleanFilter = filterTerm.toLowerCase().trim();
+
+            const activeBenefitKeys = selectedBenefitKeys.slice();
+
+            table.style.minWidth = `${Math.max(420, 240 + activeBenefitKeys.length * 190)}px`;
+
+            if (activeBenefitKeys.length === 0) {
+                const emptyRow = document.createElement('tr');
+                const emptyCell = document.createElement('td');
+                emptyCell.colSpan = 1;
+                emptyCell.className = 'empty-state-cell';
+                emptyCell.innerHTML = `
+                    <div class="empty-state-title">No benefits selected yet</div>
+                    <div class="empty-state-copy">Tick one or more boxes above to populate the comparison table.</div>
+                `;
+                emptyRow.appendChild(emptyCell);
+                tableBody.appendChild(emptyRow);
+                return;
+            }
+
+            cardsData.forEach((card, rowIndex) => {
+                // Determine if row matches query globally
+                let matchesSearch = false;
+                if (card.name.toLowerCase().includes(cleanFilter)) {
+                    matchesSearch = true;
+                }
+                
+                if (!matchesSearch) {
+                    for (let key in card.benefits) {
+                        if (card.benefits[key].toLowerCase().includes(cleanFilter)) {
+                            matchesSearch = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (cleanFilter !== '' && !matchesSearch) return; // Filter out rows not matching query
+
+                const tr = document.createElement('tr');
+                
+                // Card column creation
+                const tdCard = document.createElement('td');
+                tdCard.setAttribute('data-label', 'Card');
+                const a = document.createElement('a');
+                a.href = card.url;
+                a.target = "_blank";
+                a.rel = "noopener noreferrer";
+                a.className = "card-link";
+                a.innerHTML = highlightMarkup(card.name, cleanFilter);
+                tdCard.appendChild(a);
+                tr.appendChild(tdCard);
+
+                // Benefits columns creation
+                activeBenefitKeys.forEach(key => {
+                    const td = document.createElement('td');
+                    td.setAttribute('data-label', columnLabels[key] || key);
+                    const rawValue = card.benefits[key];
+
+                    if (rawValue === "N/A") {
+                        td.className = "benefit-cell na-cell";
+                        td.innerHTML = '<ul class="benefit-ul"><li class="benefit-li">N/A</li></ul>';
+                    } else {
+                        td.className = "benefit-cell";
+                        td.innerHTML = `<span class="cell-summary">${highlightMarkup(summarizeBenefit(rawValue), cleanFilter)}</span>`;
+                        // Click management to capture cell context
+                        td.addEventListener('click', () => openBenefitDetails(card.name, key, rawValue));
+                    }
+                    tr.appendChild(td);
+                });
+
+                tableBody.appendChild(tr);
+            });
+        }
+
+        // Highlight matching substrings safely within HTML markup
+        function highlightMarkup(text, pattern) {
+            if (!pattern || text === "N/A") return text;
+            const escapedPattern = pattern.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+            const regex = new RegExp(`(${escapedPattern})`, 'gi');
+            return text.replace(regex, '<mark class="highlight">$1</mark>');
+        }
+
+        // Deep-dive analysis and text parsing for the modal display
+        function openBenefitDetails(cardName, technicalKey, rawString) {
+            document.getElementById('mCardName').innerText = cardName;
+            
+            // Format column key for user view
+            const humanReadableKey = technicalKey.charAt(0).toUpperCase() + technicalKey.slice(1);
+            document.getElementById('mBenefitType').innerText = humanReadableKey === 'Transfers' ? 'Airport Transfers' : 
+                                                               humanReadableKey === 'Insurance' ? 'Travel Insurance' : 
+                                                               humanReadableKey === 'Protection' ? 'Insurance & Protection' : 
+                                                               humanReadableKey === 'Other' ? 'Other Benefits' : humanReadableKey + ' Benefits';
+
+            const modalBody = document.getElementById('modalBody');
+            modalBody.innerHTML = '';
+
+            const parts = splitBenefitText(rawString);
+
+            if (parts.length >= 2) {
+                const overviewContent = [parts[0], parts[1]].filter(Boolean).join(' - ');
+                const useDetails = parts[2] || 'No separate usage steps were provided for this benefit.';
+                const limitDetails = parts[3] || 'No explicit frequency limit was listed.';
+                const supportDetails = [parts[1], parts[2]].filter(Boolean).join(' ');
+                const structuralSections = [
+                    { title: 'Overview', content: overviewContent, lead: true },
+                    { title: 'How it works', content: parts[2] || 'Present the card, app, or linked account where supported.' },
+                    { title: 'Eligibility or spend', content: useDetails.toLowerCase().includes('spend') ? useDetails : 'Any spend thresholds are shown in the benefit summary above.' },
+                    { title: 'Limits', content: limitDetails },
+                    { title: 'Provider notes', content: supportDetails.includes('Visa') ? 'Visa network benefit' : supportDetails.includes('Mastercard') ? 'Mastercard network benefit' : 'Bank or partner benefit' }
+                ];
+
+                structuralSections.forEach(section => {
+                    const sectionDiv = document.createElement('div');
+                    sectionDiv.className = "modal-section";
+                    if (section.lead) {
+                        sectionDiv.classList.add('lead-section');
+                    }
+                    
+                    const titleDiv = document.createElement('div');
+                    titleDiv.className = "modal-section-title";
+                    titleDiv.innerText = section.title;
+                    
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = "modal-section-content";
+                    contentDiv.innerText = section.content;
+                    
+                    sectionDiv.appendChild(titleDiv);
+                    sectionDiv.appendChild(contentDiv);
+                    modalBody.appendChild(sectionDiv);
+                });
+            } else {
+                modalBody.innerHTML = `<div class="na-modal-msg">No detailed breakdown is available for this benefit.</div>`;
+            }
+
+            modal.classList.add('active');
+        }
+
+        // Close modal workflows
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+        });
+
+        // Search interface pipeline execution
+        searchBar.addEventListener('input', (e) => {
+            renderTable(e.target.value);
+        });
+
+        selectAllBtn.addEventListener('click', () => {
+            selectedBenefitKeys = keyMapping.slice();
+            renderBenefitCheckboxes();
+            renderTable(searchBar.value);
+        });
+
+        clearAllBtn.addEventListener('click', () => {
+            selectedBenefitKeys = [];
+            renderBenefitCheckboxes();
+            renderTable(searchBar.value);
+        });
+
+        // Initial launch configuration
+        renderBenefitCheckboxes();
+        renderTable();
+    </script>
+</body>
+</html>
