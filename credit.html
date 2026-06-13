@@ -316,6 +316,23 @@
             text-decoration: underline;
         }
 
+        .card-thumb {
+            display: block;
+            width: 100%;
+            max-width: 180px;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            background: #e2e8f0;
+            margin-bottom: 0.45rem;
+        }
+
+        .card-name {
+            display: block;
+            line-height: 1.25;
+        }
+
         .benefit-cell {
             cursor: pointer;
         }
@@ -323,7 +340,7 @@
         .benefit-cell .cell-summary {
             display: block;
             line-height: 1.55;
-            max-width: 28ch;
+            max-width: 20ch;
         }
 
         .benefit-cell.na-cell {
@@ -477,6 +494,17 @@
             color: var(--text-main);
         }
 
+        .modal-link {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .modal-link:hover {
+            text-decoration: underline;
+        }
+
         .na-modal-msg {
             text-align: center;
             color: var(--na-color);
@@ -544,6 +572,10 @@
             td {
                 min-width: 170px;
             }
+
+            .card-thumb {
+                max-width: 160px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -577,6 +609,10 @@
             .modal-body {
                 padding-left: 1rem;
                 padding-right: 1rem;
+            }
+
+            .card-thumb {
+                max-width: 140px;
             }
         }
     </style>
@@ -644,222 +680,245 @@
         const cardsData = [
             {
                 bank: "FAB",
-                name: "FAB World Elite Mastercard",
-                url: "https://www.bankfab.com/en-ae/personal/cards/credit-cards/world-elite-card",
+                name: "FAB World Elite Credit Card",
+                url: "https://www.bankfab.com/en-ae/personal/credit-cards/fab-world-elite",
+                benefitLinks: {
+                    transfers: "https://www.bankfab.com/en-ae/personal/credit-cards/fab-world-elite",
+                    hotel: "https://www.bankfab.com/en-ae/personal/credit-cards/fab-world-elite",
+                    concierge: "https://www.bankfab.com/en-ae/private/fab-world-elite-debit-card"
+                },
                 benefits: {
-                    lounge: "Lounge Access — Mastercard LoungeKey structural access asset — Present card physically or digitally at portal — Unlimited access lines for cardholder and one additional guest per visit",
-                    transfers: "Airport Transfers — Careem executive airport platform deployment — Input native promotional token inside application — Maximum usage allocation mapped at 4 transfers per calendar cycle",
-                    insurance: "Travel Insurance — Multi-trip premium international coverage protection — Purchase flight itinerary fully utilizing card asset — Maximum global scale allocation bounded at USD 500,000",
-                    hotel: "Hotel Benefits — Mastercard Luxury Hotels asset ecosystem — Execute itinerary deployment via Mastercard advisor line — Room tier upgrades validation and late checkout options map dynamically",
-                    airline: "Airline Benefits — Cleartrip digital travel booking optimization — Process checkout framework utilizing targeted portal token — Up to 30% baseline flight optimization value boundaries",
-                    dining: "Dining Benefits — Mastercard Buy 1 Get 1 premium application catalog — Download and activate individual profile via official application store — Unlimited validation occurrences across aligned international merchant networks",
+                    lounge: "Lounge Access — Mastercard Travel Pass / Lounge network (self + 1 guest) — Register and present QR/card at lounge — Private Banking invitation-only portfolio",
+                    transfers: "Airport Transfers — ENA Travels chauffeur bookings via Fabtransfers@enatravels.com or +971 4 852 4856 — Submit flight itinerary and booking form at least 48 hours before travel (Mon-Sat 9am-7pm desk) — 8 complimentary rides/year; late requests or missing physical card verification can void the ride",
+                    insurance: "Insurance & Protection — Purchase and travel protections as listed in World Elite coverage guides — Use the card for eligible purchases/trips — Claims follow issuer and network policy documentation",
+                    hotel: "Hotel Benefits — GHA DISCOVERY Black upgrade (room upgrades, late check-out up to 6pm, guaranteed room availability terms) — Request activation via World Elite Concierge — Enrollment processing typically 5-7 business days",
+                    airline: "Airline Benefits — Premium travel privileges bundled with World Elite platform — Book through eligible channels — Offer windows and partner terms apply",
+                    dining: "N/A",
                     cashback: "N/A",
-                    rewards: "Rewards & Loyalty Programs — FAB Miles proprietary optimization mechanism — Calculate baseline retail and cross-border currency clearings — Direct conversions into partner carrier assets with no points expiry timelines",
-                    golf: "Golf Benefits — Premium course green fee waivers — Cross structural threshold criteria of AED 5,000 baseline spend monthly — 2 complimentary sessions per calendar cycle at premium UAE courses",
-                    fitness: "Fitness Benefits — Fitness First physical club access authorization — Maintain dynamic monthly banking spend verification metrics — Access tracking and validations mapped dynamically at club counters",
-                    concierge: "Concierge Services — World Elite 24/7 dedicated personal operational assistance — Contact regional or global communication hubs via direct hotline — Unlimited fulfillment processing for lifestyle, asset search, and tracking requests",
-                    entertainment: "Entertainment Benefits — VOX Cinemas screening ticket optimization — Purchase admission tickets via digital VOX framework or application pipeline — Up to 4 complimentary standard admission units allocation per statement loop",
-                    lifestyle: "Lifestyle Privileges — Avis premium global vehicle rental optimization — Register framework utilizing dedicated mastercard tier verification link — Up to 35% discount structures mapping onto global base leasing configurations",
-                    protection: "Insurance & Protection — Commercial purchase protection insurance asset — Execute full payment protocols on items using card tool — Up to USD 3,000 single incidence coverage tracking parameter thresholds",
-                    other: "Other Benefits — Global data roaming distribution packages — Register active card profile inside the Flexiroam deployment module — 3GB premium global data allowance allocated annually with no extra costs"
+                    rewards: "Rewards & Loyalty Programs — FAB Rewards earn rate 5 per AED 1 on local/international spend — Monthly cap 600,000 rewards points — Invitation-only private banking card construct",
+                    golf: "N/A",
+                    fitness: "N/A",
+                    concierge: "Concierge Services — World Elite concierge required for selected activations (including hotel tier enrollments) — Contact concierge desk for manual enrollments — Missing enrollment requests delays access",
+                    entertainment: "N/A",
+                    lifestyle: "Lifestyle Privileges — Meet & Greet benefit (8/year) via 800 40000 or Meetandgreet@bankfab.com with 48-hour notice — Dubai International Airport active; Abu Dhabi International Airport service suspended per provided audit — Late booking submissions are rejected",
+                    protection: "Insurance & Protection — Coverage requires compliant usage and claim evidence — Check policy limits and exclusions before travel — Non-compliant claims can be declined",
+                    other: "Other Benefits — Critical transfer compliance: notify flight changes to ENA Travels at least 12 hours in advance to avoid forfeiture"
                 }
             },
             {
                 bank: "Mashreq",
                 name: "Mashreq Solitaire Credit Card",
-                url: "https://www.mashreq.com/en/uae/personal/cards/credit-cards/solitaire-credit-card",
+                url: "https://contentdelivery.mashreqbank.com/cards/onboarding/benefit-terms/solitaire.pdf",
+                benefitLinks: {
+                    transfers: "https://contentdelivery.mashreqbank.com/cards/onboarding/benefit-terms/solitaire.pdf",
+                    golf: "https://contentdelivery.mashreqbank.com/cards/onboarding/benefit-terms/solitaire.pdf",
+                    fitness: "https://contentdelivery.mashreqbank.com/cards/onboarding/benefit-terms/solitaire.pdf"
+                },
                 benefits: {
-                    lounge: "Lounge Access — Visa Infinite structural LoungeKey asset distribution — Register profile on platform app or showcase card — Unlimited validation layers for cardholder plus single guest tracking internationally",
-                    transfers: "Airport Transfers — Careem premium airport transfer service — Accumulate minimum monthly statement values of AED 10,000 — 4 complimentary luxury transport allocations per billing year",
-                    insurance: "Travel Insurance — International multi-trip medical protection wrap — Complete transport scheduling steps with Solitaire payment gateway — Coverage ceiling limits designated up to USD 500,000",
-                    hotel: "Hotel Benefits — Visa Luxury Hotel Collection profile access — Finalize room tracking protocols via the Visa premium portal — Priority room adjustments, early checking verification, and complementary dining allocations",
-                    airline: "Airline Benefits — Strategic carrier structural promotional alignments — Process programmatic checkout actions during active seasonal profiles — Campaign dependent limits variable across active calendar windows",
-                    dining: "Dining Benefits — Mashreq Dine More merchant discount network — Present physical card or settle transaction using digital device — Up to 30% instant cost adjustment at premium domestic locations",
+                    lounge: "Lounge Access — LoungeKey capped at 12 visits/year (self or self + guest) — Requires at least one international transaction above USD 1 yearly; replaced cards require fresh qualifying international swipe — Activation sync may lag up to 15 days",
+                    transfers: "Airport Transfers — 6 complimentary pick-up/drop services per year, capped jointly at 2 services/month across primary + supplementary cards — Requires AED 10,000 retail spend in previous billing cycle — Service must begin and end within same Emirate (Dubai or Abu Dhabi); cross-Emirate routes are ineligible",
+                    insurance: "N/A",
+                    hotel: "N/A",
+                    airline: "N/A",
+                    dining: "N/A",
                     cashback: "N/A",
-                    rewards: "Rewards & Loyalty Programs — Mashreq Salaam points optimization framework — Settle standard retail and currency conversion metrics — Flexible point redemptions map onto gift vouchers, travel operations, or retail modules",
-                    golf: "Golf Benefits — Elite local course green fee clearances — Realize minimum operational monthly card activity of AED 10,000 — 2 complimentary booking cycles per month tracking across select UAE infrastructure",
-                    fitness: "Fitness Benefits — Fitness First gym premium access passes — Validate minimum rolling monthly account turnover of AED 10,000 — Capped at maximum threshold boundary of 12 distinct admissions annually",
-                    concierge: "Concierge Services — Visa Infinite global 24/7 digital concierge layer — Connect through internet application panel or direct telephony channels — Non-capped task resolution allocations handling booking, reservations, and lifestyle requests",
-                    entertainment: "Entertainment Benefits — NOVO Cinemas admission price adjustments — Process transactions via online NOVO app or corporate website interface — Flat 50% discount modifier tracking up to 4 validation instances monthly",
-                    lifestyle: "Lifestyle Privileges — Marhaba airport Meet & Greet assistance processing — Generate minimum programmatic accounting spend of AED 10,000 monthly — 2 complimentary premium welcoming services per calendar cycle",
-                    protection: "Insurance & Protection — Extended warranty coverage acceleration asset — Pay for electronic hardware fully with Solitaire card instrument — Multiplies baseline manufacturer warranty timeline by 2x scaling up to 1 year",
-                    other: "Other Benefits — Premium private yacht leasing cost optimization — Request booking access protocols via corporate service representative framework — Specific preferential rate matrices mapped onto luxury marine charters"
+                    rewards: "Rewards & Loyalty Programs — Salaam Points earn rate 6 points per AED 1 local/international spend — No minimum spend required for base earning — Perk eligibility still depends on threshold rules by category",
+                    golf: "Golf Benefits — Complimentary rounds for customer + partner at participating UAE clubs — Requires previous billing cycle retail spend of AED 10,000 — Benefit deactivates immediately when prior-cycle spend falls below threshold",
+                    fitness: "Fitness Benefits — Unlimited Fitness First UAE access after eligibility is unlocked — Requires previous billing cycle retail spend of AED 10,000 — Access denied at reception if threshold is missed",
+                    concierge: "N/A",
+                    entertainment: "N/A",
+                    lifestyle: "Lifestyle Privileges — 6 Marhaba Silver Meet & Greet services/year at DXB, jointly capped at 2/month with supplementary cards — Requires previous-cycle AED 10,000 spend — Ineligible cycle triggers rejection or full retail charge",
+                    protection: "N/A",
+                    other: "Other Benefits — Car registration (1 pick-up/year) and servicing pick-up (2/year) are spend-gated at AED 10,000 previous cycle — Core failure mode is missing threshold by even AED 1"
                 }
             },
             {
                 bank: "Emirates NBD",
                 name: "Emirates NBD dnata World Mastercard",
-                url: "https://www.emiratesnbd.com/en/cards/credit-cards/dnata-world-mastercard",
+                url: "https://www.emiratesnbd.com/en/cards/credit-cards/dnata-world-credit-card",
+                benefitLinks: {
+                    rewards: "https://www.emiratesnbd.com/en/help-and-support/earning-dnata-points",
+                    golf: "https://www.emiratesnbd.com/en/cards/credit-cards/dnata-world-credit-card",
+                    lifestyle: "https://www.emiratesnbd.com/en/cards/credit-cards/dnata-world-credit-card"
+                },
                 benefits: {
-                    lounge: "Lounge Access — Global LoungeKey airport ecosystem inclusion — Present physical card to attendant inside participating facilities — Non-capped complementary entry tracking for the primary user plus one guest",
-                    transfers: "Airport Transfers — Private premium airport terminal transport networks — Contact concierge booking desk minimum 48 hours before transit — 4 complimentary airport transit deployments allocated per active year",
-                    insurance: "Travel Insurance — Multi-trip travel delay, accident and medical security package — Purchase travel tickets using the dnata World card framework — Maximum programmatic insurance validation tracking up to USD 500,000",
-                    hotel: "Hotel Benefits — Mastercard Luxury Hotels & Resorts collection access — Process booking mechanics via the dedicated Mastercard travel desk — Complimentary room level adjustments, free breakfast units, and late logout options",
-                    airline: "Airline Benefits — dnata Travel network priority earn structures — Settle payments directly inside dnata Travel physical or digital hubs — Earn up to 15% reward optimization metrics on programmatic travel purchases",
-                    dining: "Dining Benefits — Emirates NBD Bon Appetit reward program — Settle restaurant bills with the physical or digital card asset — Up to 30% savings tracking across broad networks of premium UAE restaurants",
+                    lounge: "Lounge Access — Mastercard Travel Pass app with 1,000+ lounges worldwide — Register card in app and present generated QR code at entry — Cardholder is complimentary; guest charged USD 32/visit",
+                    transfers: "Airport Transfers — Offered through ENBD concierge channels per provided matrix — Verify booking workflow and spend dependencies before confirmation — Non-compliant bookings may be billed at retail rate",
+                    insurance: "N/A",
+                    hotel: "Hotel Benefits — dnata travel ecosystem integration and travel redemptions via dnata Points — Book through eligible channels — Partner-level terms and exclusions apply",
+                    airline: "Airline Benefits — Travel ecosystem acceleration tied to dnata/partner categories — Use card with eligible merchants — Reduced accrual applies to excluded categories and geographies",
+                    dining: "Dining Benefits — Elevated earn in partner ecosystem including Costa and related brands — Earn depends on merchant coding — Mis-coded transactions may post at lower base tiers",
                     cashback: "N/A",
-                    rewards: "Rewards & Loyalty Programs — Proprietary dnata Points calculation algorithm — Settle retail, utility, and cross-border transactions using card — Points instantly spendable directly at dnata Travel merchant terminals",
-                    golf: "Golf Benefits — Complementary local premium golf access rights — Achieve minimum card monthly retail expenditure tracking of AED 5,000 — 2 complimentary rounds per month across specific elite UAE courses",
+                    rewards: "Rewards & Loyalty Programs — dnata Points model: 15% at dnata/Costa/City Sightseeing/Giraffe; 10% at Dubai Duty Free/MMI/Le Clos/Arabian Adventures; 1.5% base (cap 3,000 points/statement); EU/UK at 25% of base; utilities/government/education/telecom/transit/real-estate at 10% of base",
+                    golf: "Golf Benefits — Access to UAE courses including Arabian Ranches, Jebel Ali, Meydan, Abu Dhabi Golf Club, and Sharjah Golf Club — Booking via designated online portal — AED 30 processing fee per tee time; no-show/full green fee charges apply by course policy",
                     fitness: "N/A",
-                    concierge: "Concierge Services — ENBD Local & Global Concierge lifestyle operational team — Dial targeted internal bank communication channel lines — Unlimited access to booking requests, event access validations, and routing coordination",
-                    entertainment: "Entertainment Benefits — VOX Cinemas buy 1 get 1 screening benefits — Complete ticketing purchases via the VOX digital client interfaces — Up to 4 complimentary standard admission vouchers per statement loop",
-                    lifestyle: "Lifestyle Privileges — Marhaba Premium Lounge access structural privilege — Present valid card profile at Dubai International Airport lounges — Unlimited priority entry options mapping to primary card operator",
-                    protection: "Insurance & Protection — Retail purchase protection plan integration — Pay for consumer goods fully utilizing card asset mechanism — Bounded up to maximum global target limits of USD 5,000 annually",
-                    other: "Other Benefits — Dubai Duty Free retail instant savings layer — Settle point-of-sale invoices inside global airport terminal zones — 10% direct price optimization tracking on premium retail selections"
+                    concierge: "N/A",
+                    entertainment: "N/A",
+                    lifestyle: "Lifestyle Privileges — 4 complimentary valet services/month at selected Abu Dhabi sites (Yas Mall, Ferrari World, Cleveland Clinic, Marina Mall, Dalma Mall) — Present active card at valet desk — Usage above cap billed at standard retail parking rates",
+                    protection: "N/A",
+                    other: "Other Benefits — Operational risk: devaluation on core spend classes and reduced EU/UK earn rate can materially lower expected return"
                 }
             },
             {
                 bank: "Emirates NBD",
                 name: "Emirates NBD SHARE Visa Signature Credit Card",
-                url: "https://www.emiratesnbd.com/en/cards/credit-cards/share-visa-signature-card",
+                url: "https://www.emiratesnbd.com/en/cards/credit-cards/share-visa-signature-credit-card",
+                benefitLinks: {
+                    rewards: "https://www.emiratesnbd.com/-/media/enbd/files/share/share_signature_credit_card_benefits_en.pdf",
+                    transfers: "https://www.emiratesnbd.com/-/media/enbd/files/share/share_signature_credit_card_benefits_en.pdf",
+                    entertainment: "https://www.emiratesnbd.com/-/media/enbd/files/share/share_signature_credit_card_benefits_en.pdf"
+                },
                 benefits: {
-                    lounge: "Lounge Access — Global LoungeKey network validation tracking — Execute minimum international token transaction value of USD 1 — 12 complimentary lounge visits per year tracking for cardholder only",
-                    transfers: "N/A",
-                    insurance: "Travel Insurance — International travel medical emergency insurance asset — Settle regional and global transit costs through the card portal — Global coverage tracking up to ceiling amounts of USD 500,000",
-                    hotel: "Hotel Benefits — Visa Luxury Hotel structural collection profile — Confirm booking operations inside official Visa Signature hotel portal — Preferential baseline rates, space-available room upgrades, and continental breakfast access",
+                    lounge: "Lounge Access — Visa Airport Companion model per provided matrix (self access profile) — Register in app and validate eligibility — Access behavior follows active Visa terms",
+                    transfers: "Airport Transfers — Door-to-door concierge services through ENBD Concierge Desk — Requires AED 5,000 retail spend in current billing cycle — If monthly spend is missed, bank may retro-bill service cost",
+                    insurance: "N/A",
+                    hotel: "N/A",
                     airline: "N/A",
-                    dining: "Dining Benefits — Majid Al Futtaim dining network point adjustment — Settle restaurant checks inside MAF commercial mall infrastructure — Automated access tiers to localized retail restaurant savings metrics",
-                    cashback: "Shopping Cashback — Programmatic SHARE points cashback multiplier engine — Settle invoices at Carrefour, VOX, or aligned MAF properties — Up to 7% back returned as live spendable SHARE points value matrix",
-                    rewards: "Rewards & Loyalty Programs — Majid Al Futtaim SHARE points aggregation platform — Process daily retail actions across domestic and international merchants — Redeem instantly for consumer purchases via the native digital SHARE app",
+                    dining: "Dining Benefits — SHARE ecosystem earn at Majid Al Futtaim network merchants — Use card in eligible MAF channels for accelerated earn — Merchant mapping affects final point credit",
+                    cashback: "Shopping Cashback — SHARE returns in point-equivalent value across MAF ecosystem — 6% at MAF venues and additional app-linked uplift per benefit guide — Conversion ratio 10 SHARE Points = AED 1",
+                    rewards: "Rewards & Loyalty Programs — SHARE earn matrix: 6% MAF venues, up to 9% with SHARE app-linked ecosystem usage, 1% selected non-MAF categories, 0.25% base, 0.10% utilities/gov/transit/education/telecom/petroleum/real-estate",
                     golf: "N/A",
                     fitness: "N/A",
-                    concierge: "Concierge Services — Visa Digital Concierge automated chat environment — Register account asset via the international Visa Signature web framework — 24/7 unlimited access lines for automated lifestyle support and booking help",
-                    entertainment: "Entertainment Benefits — VOX Cinemas admission discount allocation matrix — Process movie tickets via the internet app or website tool — 50% flat discount modifier applied up to 4 tickets per month",
-                    lifestyle: "Lifestyle Privileges — Majid Al Futtaim regional commercial mall valet parking — Hit minimum card monthly utilization performance benchmarks of AED 3,000 — 2 complimentary mall valet service occurrences per statement period",
-                    protection: "Insurance & Protection — Visa buyer protection commercial consumer framework — Execute items purchase action utilizing card transaction protocols — Protection parameters against sudden theft or unintentional material damage lines",
-                    other: "Other Benefits — Carrefour instant point acceleration bonus layers — Present card instrument at Carrefour UAE checkout terminals — Direct programmatic points upgrade tracking across all inventory items"
+                    concierge: "Concierge Services — Personalized concierge plus roadside assistance via ENBD Concierge — Requires AED 5,000 monthly retail spend in cycle of use — Failure to maintain threshold can trigger retrospective billing",
+                    entertainment: "Entertainment Benefits — VOX buy-1-get-1 offer — Requires AED 3,500 spend in billing cycle of utilization — If threshold is not achieved, full ticket value can be charged back",
+                    lifestyle: "Lifestyle Privileges — Ecosystem-first value with shopping-led rewards and service perks — Monitor monthly thresholds before using gated perks — Statement-cycle tracking is mandatory",
+                    protection: "Insurance & Protection — Roadside support bundled through concierge framework — Usage governed by active-cycle eligibility checks — Ineligible usage may be billed",
+                    other: "Other Benefits — Free-for-life positioning in matrix; spend-gated benefit usage remains the practical control layer"
                 }
             },
             {
                 bank: "Emirates NBD",
                 name: "Emirates NBD Noon One Visa Credit Card",
-                url: "https://www.emiratesnbd.com/en/cards/credit-cards/noon-one-credit-card",
+                url: "https://www.emiratesnbd.com/-/media/enbd/files/cards/value-charts/noon_one_visa_credit_card_value_chart.pdf",
+                benefitLinks: {
+                    rewards: "https://www.emiratesnbd.com/en/help-and-support/redeeming-noon-credits",
+                    lifestyle: "https://www.emiratesnbd.com/en/help-and-support/redeeming-noon-credits",
+                    other: "https://www.emiratesnbd.com/en/help-and-support/redeeming-noon-credits"
+                },
                 benefits: {
-                    lounge: "Lounge Access — Worldwide airport LoungeKey access pipeline — Complete minimum international transaction spend metrics of USD 1 — 10 complimentary airport lounge entry instances per calendar cycle",
+                    lounge: "N/A",
                     transfers: "N/A",
-                    insurance: "Travel Insurance — Basic Travel Shield accidental protection policy — Automatic activation protocols triggered upon active account creation steps — Structured standard baseline personal insurance coverage boundaries",
-                    hotel: "Hotel Benefits — Agoda global property booking discount engine — Finalize reservation steps utilizing dedicated corporate web links — Up to 12% off on baseline international hotel property stays",
+                    insurance: "N/A",
+                    hotel: "N/A",
                     airline: "N/A",
-                    dining: "Dining Benefits — Noon Food application cost adjustment metrics — Process dining orders through the native Noon mobile interface — Unlimited access loops to free shipping rules or up to 20% menu discounts",
-                    cashback: "Shopping Cashback — Unlimited flat noon ecosystem digital cashback — Route spend through Noon, NowNow online, or Namshi platform — 5% unlimited flat cashback returned directly to user digital wallet",
-                    rewards: "Rewards & Loyalty Programs — Noon Balance currency credit distribution engine — Automated monthly calculation and posting onto personal profile — Unlimited financial generation tied to targeted ecosystem merchant clearings",
+                    dining: "Dining Benefits — Noon Food and Noon Minutes highest earn tier — Card-linked account required for credit posting — Non-linked accounts do not receive expected credits",
+                    cashback: "Shopping Cashback — Noon Credits matrix: 20% Noon Food/Minutes, 10% NowNow, 5% Noon core shopping/Supermall/Namshi, 1% other retail — Eligible retail transactions only; cash advances/fees/loans excluded",
+                    rewards: "Rewards & Loyalty Programs — Noon Credits valid for 5 years from accrual — Auto-link works only when card application email matches Noon account email — Mismatch creates separate account and may isolate credits",
                     golf: "N/A",
                     fitness: "N/A",
                     concierge: "N/A",
-                    entertainment: "Entertainment Benefits — Noon Minutes instant quick delivery tier access — Settle orders inside the Noon Minutes mobile framework — Unlimited access to free fast tracking delivery with zero minimum order thresholds",
-                    lifestyle: "Lifestyle Privileges — Complementary Noon One premium programmatic subscription — Maintain active card account state without defaults or suspensions — Complete waiver of monthly recurring membership subscription tariff lines",
-                    protection: "Insurance & Protection — Visa purchase secure digital transaction protection layer — Route online or brick-and-mortar retail actions using card — Programmatic protection loops checking for electronic fraud or identity manipulation",
-                    other: "Other Benefits = Welcome bonus balance sign-up incentive value — Execute initial financial card spend within 30 days from generation — Up to AED 500 one-time noon wallet credit injection into profile"
+                    entertainment: "N/A",
+                    lifestyle: "Lifestyle Privileges — Complimentary annual Noon One subscription on successfully linked account — Unlocks free delivery benefits on Noon ecosystem channels — Activation follows registration and verification workflow",
+                    protection: "N/A",
+                    other: "Other Benefits — Manual account merge/support path available via rcbcustomerserviceteam@emiratesnbd.com for email-mismatch issues"
                 }
             },
             {
                 bank: "Emirates Islamic",
                 name: "Emirates Islamic Skywards Infinite Credit Card",
-                url: "https://www.emiratesislamic.ae/en/personal/cards/credit-cards/skywards-infinite-credit-card",
+                url: "https://www.emiratesislamic.ae/en/cards/credit-cards/skywards-infinite-credit-card",
+                benefitLinks: {
+                    rewards: "https://www.emiratesislamic.ae/en/help-and-support/earning-skywards-miles-on-your-credit-card",
+                    lifestyle: "https://www.emiratesislamic.ae/en/cards/credit-cards/skywards-infinite-credit-card",
+                    entertainment: "https://www.emiratesislamic.ae/en/cards/credit-cards/skywards-infinite-credit-card"
+                },
                 benefits: {
-                    lounge: "Lounge Access — Infinite level LoungeKey airport structural asset — Complete minimum international token transactions of USD 1 — Unlimited entries tracking for cardholder and single accompanying guest entity",
-                    transfers: "Airport Transfers — Marhaba premium airport silver lounge/transit processing — Maintain minimum monthly account retail spend metrics of AED 5,000 — 4 complimentary services mapped across active calendar years",
-                    insurance: "Travel Insurance — Multi-trip absolute global travel insurance framework — Complete flight ticket acquisition tasks utilizing card processing lines — Up to USD 1,000,000 absolute comprehensive coverage metrics",
-                    hotel: "Hotel Benefits — Visa Luxury Hotel dynamic collection portfolio — Process reservation actions directly through the Visa Infinite booking engine — Priority room asset class adjustment, breakfast access, and checking updates",
-                    airline: "Airline Benefits — Emirates Skywards Miles acceleration calculation engine — Book corporate or leisure flights via official Emirates channels — Earn up to 2 full Skywards Miles per USD spent tracking",
-                    dining: "Dining Benefits — Mazaya premium dining discount catalog network — Settle merchant point-of-sale invoices utilizing card infrastructure — Up to 30% price adjustment metrics tracking across UAE restaurant vendors",
-                    cashback: "N/A",
-                    rewards: "Rewards & Loyalty Programs — Emirates Skywards Frequent Flyer point system — Complete commercial domestic and international retail clearings with card — Points directly pipeline into primary connected Skywards frequent flyer account",
-                    golf: "Golf Benefits — Complementary elite local golf course usage privileges — Accumulate minimum monthly rolling account spend metrics of AED 10,000 — Unlimited weekday golf session allocations tracking across select UAE courses",
-                    fitness: "N/A",
-                    concierge: "Concierge Services — Visa Infinite 24/7 international lifestyle concierge grid — Reach operators via direct toll-free telephony or specialized app — Unlimited fulfillment paths handling transport tracking, dining reservations, and ticketing",
-                    entertainment: "Entertainment Benefits — Reel Cinemas admission buy 1 get 1 free program — Buy cinema tickets via the Reel digital website or client app — Up to 3 complimentary free admission units per month tracking bounds",
-                    lifestyle: "Lifestyle Privileges — Emirates Skywards Silver Tier frequent flyer status — Automatic processing triggers upon primary card authorization steps — Valid for 1 full continuous calendar year from activation point",
-                    protection: "Insurance & Protection — Extended warranty and purchase protection layer integration — Settle equipment costs fully via the card instrument pipeline — Multiplies warranty limits up to 1 extra year or USD 5,000 annually",
-                    other: "Other Benefits — Free domestic valet parking service networks — Cross minimum monthly card expenditure threshold metrics of AED 5,000 — 4 complimentary valet parking instances permitted monthly across select locations"
-                }
-            },
-            {
-                bank: "Emirates Islamic",
-                name: "Emirates Islamic Amazon Credit Card",
-                url: "https://www.emiratesislamic.ae/en/personal/cards/credit-cards/amazon-home",
-                benefits: {
-                    lounge: "N/A",
+                    lounge: "Lounge Access — Visa Airport Companion/partner lounge model with premium tier access per provided matrix — Register card in partner app for digital entitlement — Terms depend on active network policy",
                     transfers: "N/A",
-                    insurance: "Travel Insurance — Basic purchase protection travel accidental cover wrap — Automatic system inclusion initiated upon primary card usage activities — Standard baseline accident mitigation boundaries apply",
+                    insurance: "N/A",
                     hotel: "N/A",
-                    airline: "N/A",
-                    dining: "Dining Benefits — Mazaya generic lifestyle dining savings network — Present card at participating merchant point of sale systems — Discount percentages vary across specific locations and corporate branches",
-                    cashback: "Shopping Cashback — Amazon digital gift card points cashback algorithm — Settle electronic transactions on the official Amazon.ae store platform — Up to 3.75% cashback value index capped at AED 1,000 monthly",
-                    rewards: "Rewards & Loyalty Programs — Amazon.ae direct balance auto-conversion mechanics — Programmatic conversion of accumulated points at monthly statement closing — Balance links directly to the primary user Amazon profile",
-                    golf: "N/A",
+                    airline: "Airline Benefits — Emirates/flydubai-focused earn acceleration — Earn 2.0 Skywards Miles per USD 1 on Emirates/flydubai AED transactions; 1.5 on international non-AED; 1.0 on domestic AED — USD conversion benchmark uses AED 3.6725",
+                    dining: "N/A",
+                    cashback: "N/A",
+                    rewards: "Rewards & Loyalty Programs — Miles post into linked Skywards account; ensure account linkage at application — Missing linkage can delay expected tier and mile handling — Track qualifying channel usage for renewals",
+                    golf: "Golf Benefits — Complimentary golf with monthly spend gate — Requires AED 10,000 monthly retail spend to maintain eligibility — Threshold failure removes expected complimentary access",
                     fitness: "N/A",
                     concierge: "N/A",
-                    entertainment: "Entertainment Benefits — Amazon Prime promotional campaign access windows — Fulfill specific tactical card spend thresholds during marketing periods — Access parameters track variable campaign timelines dynamically",
-                    lifestyle: "Lifestyle Privileges — Free for Life absolute account structural state — Zero minimum annual spend metrics requirements to hold card — Lifetime guarantee of zero annual membership recurring fee lines",
-                    protection: "Insurance & Protection — Amazon web platform secure shopping assurance protocols — Pay using card interface parameters inside the Amazon ecosystem — Up to USD 2,000 per year structural fraud protection tracking",
-                    other: "Other Benefits — Zero percent internal split interest installment frameworks — Purchase shopping goods valuing over AED 500 on Amazon.ae store — Choice of 3 to 12 months split payment options with no added cost"
-                }
-            },
-            {
-                bank: "Citibank",
-                name: "Citibank Prestige Credit Card",
-                url: "https://www.citibank.ae/cards/credit-cards/prestige-card/",
-                benefits: {
-                    lounge: "Lounge Access — Global Priority Pass & LoungeKey absolute asset deployment — Showcase physical card asset or digital tracking app passport — Unlimited lounge visit occurrences for cardholder plus one accompanying guest tracking",
-                    transfers: "Airport Transfers — Complementary absolute luxury limousine or Careem transits — Schedule transport actions via concierge grid minimum 48 hours early — 4 premium elite transfer operations allocated per calendar cycle",
-                    insurance: "Travel Insurance — Comprehensive global travel health and delay protection — Settle complete transit booking values utilizing the Prestige card asset — Up to USD 500,000 medical emergency and baggage protection parameters",
-                    hotel: "Hotel Benefits — Complementary absolute 4th night hotel stay globally — Book minimum 4 consecutive nights via the Citibank concierge pipeline — Valid for exactly 2 booking cycles per individual calendar year",
-                    airline: "Airline Benefits — ThankYou Points international airline transfer flexibility matrix — Access rewards exchange module inside Citibank digital portal asset — Points fluidly transfer to over 15 partner frequent flyer programs",
-                    dining: "Dining Benefits — Citi Gourmet Pleasures premium hospitality discount matrix — Settle operational restaurant invoices using the Prestige card tool — Up to 20% cost adjustment tracking across elite dining venues",
-                    cashback: "N/A",
-                    rewards: "Rewards & Loyalty Programs — Citi ThankYou Points non-expiring loyalty algorithm — Complete domestic or global retail and international currency transactions — Non-expiring point asset accumulation structures track on account profiles",
-                    golf: "Golf Benefits — Complimentary elite golf course green fee clearances — Maintain active, non-delinquent card account profiling records — 1 complimentary round per month tracking across premium UAE golf clubs",
-                    fitness: "N/A",
-                    concierge: "Concierge Services — Citi Prestige 24/7 elite dedicated lifestyle manager desk — Connect with personal account management experts via direct telephone paths — Non-capped task management covering international travel tracking, booking, and acquisition",
-                    entertainment: "Entertainment Benefits — Global concert and performance ticket presale priority pipelines — Settle reservation actions using the Citibank card portal — Early access vectors map dynamically subject to master organizer terms",
-                    lifestyle: "Lifestyle Privileges — Global luxury lifestyle collection VIP club access cards — Present physical card asset inside partner leisure frameworks internationally — Elite level hospitality tier validation parameters tracking globally",
-                    protection: "Insurance & Protection — Purchase protection plus extended warranty insurance combo — Complete item transactions using card infrastructure fully — Standard Citibank corporate protection insurance terms apply dynamically",
-                    other: "Other Benefits — Account relationship milestone annual bonus point injection — Based on rolling annual spend levels and Citibank wealth management relationship — Calculated and credited onto profile at account anniversary loops"
+                    entertainment: "Entertainment Benefits — Reel Cinemas buy-1-get-1 (up to 3 per month) — Requires AED 5,000 monthly retail spend — If threshold is not met, full ticket retail value can be billed",
+                    lifestyle: "Lifestyle Privileges — Automatic Skywards Silver for 12 months from issuance when account is linked — Renewal from year 2 requires USD 2,500 Emirates spend in prior 12 months via emirates.com, Emirates sales offices, or Emirates contact center (OTAs excluded)",
+                    protection: "N/A",
+                    other: "Other Benefits — Compliance conflict: first-year fee waiver and 10,000 welcome miles are mutually exclusive per provided audit"
                 }
             },
             {
                 bank: "HSBC",
                 name: "HSBC Premier Credit Card",
                 url: "https://www.hsbc.ae/credit-cards/products/premier/",
+                benefitLinks: {
+                    lounge: "https://www.hsbc.ae/credit-cards/products/premier/",
+                    entertainment: "https://www.hsbc.ae/credit-cards/products/premier/",
+                    other: "https://www.hsbc.ae/premier/rewards-and-offers/"
+                },
                 benefits: {
-                    lounge: "Lounge Access — Global LoungeKey premium airport structural asset — Primary and valid secondary supplementary card profiles hold equal access — Unlimited free airport lounge entry occurrences across global terminals",
-                    transfers: "Airport Transfers — Careem premium airport travel discount modifiers — Input application code UAEHSBC inside Careem digital device panel — 20% discount adjustment tracking up to 4 rides per month",
-                    insurance: "Travel Insurance — Multi-trip global travel health and accident insurance — Settle international transport costs utilizing the Premier card system — Up to USD 250,000 emergency medical validation tracking limits",
-                    hotel: "Hotel Benefits — Agoda and Expedia premium lodging optimization links — Execute bookings via customized HSBC corporate tracking web portals — Up to 12% instant value discount across global lodging options",
-                    airline: "Airline Benefits — Core airline frequent flyer loyalty program partnerships — Settle flights via specific portals or initialize points transfer steps — Dynamic campaign dependent optimization parameters track across seasonal windows",
-                    dining: "Dining Benefits — HSBC Entertainer premium mobile application access framework — Maintain active, non-restricted HSBC Premier banking tier profile state — Unlimited access to buy 1 get 1 free merchant vouchers",
+                    lounge: "Lounge Access — 8 complimentary visits/year via Travel Pass model per provided matrix — Requires at least one international non-AED transaction of USD 1+ every 3 months; each qualifying transaction unlocks next 3 months — Missing qualifying cross-border spend can block lounge entry",
+                    transfers: "Airport Transfers — 1 Careem airport ride/year in matrix (up to AED 84) using code MAUAE2 — Apply code during booking and use eligible ride class — Ineligible rides are billed at full fare",
+                    insurance: "N/A",
+                    hotel: "Hotel Benefits — home&Away and travel offer stack under Premier rewards ecosystem — Offer validity and merchant terms vary — Review partner pages before booking",
+                    airline: "N/A",
+                    dining: "N/A",
                     cashback: "N/A",
-                    rewards: "Rewards & Loyalty Programs — HSBC Air Miles proprietary loyalty tracking platform — Settle local and international consumer purchases via the card — Redeem miles points for air transit, hotel bookings, or retail vouchers",
+                    rewards: "Rewards & Loyalty Programs — HSBC Points earn 1 point per AED 1 local/international spend (uncapped) — Base earn simplicity contrasts with spend-gated perks — Monitor separate perk conditions",
                     golf: "N/A",
                     fitness: "N/A",
-                    concierge: "Concierge Services — HSBC Premier global lifestyle concierge service team — Request actions via the secure HSBC Premier digital customer portal — 24/7 unlimited fulfillment handling global travel, reservations, and ticketing",
-                    entertainment: "Entertainment Benefits — VOX Cinemas ticket buy 1 get 1 free program — Settle movie ticketing invoices inside VOX mobile app or website — Max 4 complimentary admission units per calendar statement loop",
-                    lifestyle: "Lifestyle Privileges — Global HSBC Premier network recognition and support matrix — Automatic tier validation across all global HSBC physical branches — Emergency emergency cash support processing globally if assets are lost",
-                    protection: "Insurance & Protection — Consumer purchase protection insurance wrap integration — Purchase target items fully using the card instrument — Insurance coverage against loss or damage within 90 days from purchase",
-                    other: "Other Benefits — Zero international account transfer processing fees framework — Execute digital cross-border asset transfers using HSBC online banking tools — Unlimited free transfer operations between personal global HSBC accounts"
+                    concierge: "N/A",
+                    entertainment: "Entertainment Benefits — BOGO at VOX/Reel/Roxy when booked online — Requires AED 6,000 monthly spend (primary + supplementary aggregated) — If spend target is missed, free ticket value is retroactively billed",
+                    lifestyle: "Lifestyle Privileges — Premier-only card tied to active Premier banking relationship — Benefits assume ongoing segment eligibility — Account status changes can affect benefit access",
+                    protection: "N/A",
+                    other: "Other Benefits — Key failure point is calendar-month spend shortfall after using cinema offer; retro-billing applies per governing terms"
+                }
+            },
+            {
+                bank: "Citibank",
+                name: "Citibank Prestige Credit Card",
+                url: "https://www.citibank.ae/credit-cards/rewards/citi-prestige-credit-card",
+                benefitLinks: {
+                    hotel: "https://www.citibank.ae/credit-cards/promotions/free-hotel-stay",
+                    golf: "https://www.citibank.ae/credit-cards/rewards/citi-prestige-credit-card",
+                    other: "https://www.citibank.ae/credit-cards/rewards/citi-prestige-credit-card"
+                },
+                benefits: {
+                    lounge: "Lounge Access — Premium travel-pass lounge entitlement per provided matrix (14 visits/year for self + supplementary + guest) — Register card and validate active status before travel — Entry usage is subject to network records",
+                    transfers: "Airport Transfers — Matrix indicates 4 Careem airport rides/year up to AED 84 with code MAUAE6 — Apply promo code before confirming booking — Missed code usage is not typically adjusted retroactively",
+                    insurance: "N/A",
+                    hotel: "Hotel Benefits — Prestige 4th Night Free on stays of 4+ consecutive nights booked only via Citi Prestige Concierge/Citiphone (+971 4 311 4653) — Benefit posts as statement credit based on average of first 3 nights within up to two billing cycles after stay completion — Back-to-back stays and business-use bookings are disqualified; statement-credit refund can claw back ThankYou points",
+                    airline: "Airline Benefits — ThankYou transfer ecosystem for airline partners — Convert points per active conversion rules — Partner transfer windows and ratios apply",
+                    dining: "N/A",
+                    cashback: "N/A",
+                    rewards: "Rewards & Loyalty Programs — ThankYou Points earn 3 points per USD equivalent on non-AED transactions and 2 points per USD equivalent on AED transactions — Uncapped earning architecture — Conversion/redemption outcomes depend on partner tables",
+                    golf: "Golf Benefits — Local UAE golf: unlimited weekday rounds + one weekend round/month at courses including The Els Club, Al Zorah, Arabian Ranches, Montgomerie, and Abu Dhabi Golf Club — Submit Citibank U.A.E. Golf Tee Time Reservation Form at least 5 working days in advance and cancel at least 3 working days before via golf.uae@citi.com — Late cancel/no-show triggers full green-fee billing",
+                    fitness: "N/A",
+                    concierge: "Concierge Services — Concierge/Citiphone channel is mandatory for 4th-night-free bookings — Direct third-party booking invalidates the hotel benefit — Keep proof of booking channel for disputes",
+                    entertainment: "N/A",
+                    lifestyle: "Lifestyle Privileges — Travel-focused premium design with concierge-mediated redemptions — Operational discipline is required for booking/cancel windows — Non-compliant usage can void savings",
+                    protection: "N/A",
+                    other: "Other Benefits — Compliance note from audit: AED 600 joining bonus can be invalidated when application originates through third-party/sponsored-link routes"
                 }
             },
             {
                 bank: "Standard Chartered",
                 name: "Standard Chartered Journey Credit Card",
-                url: "https://www.sc.com/ae/credit-cards/journey-credit-card/",
+                url: "https://www.sc.com/ae/credit-cards/journey/",
+                benefitLinks: {
+                    transfers: "https://www.sc.com/ae/promotions/careemat/",
+                    fitness: "https://www.sc.com/ae/promotions/warehouse-gym/",
+                    golf: "https://www.sc.com/ae/promotions/golf-priority-private/"
+                },
                 benefits: {
-                    lounge: "Lounge Access — Worldwide airport LoungeKey structural access protocol — Primary card operators and supplementary profiles hold access permissions — Unlimited complimentary lounge visits across global airport infrastructure",
-                    transfers: "Airport Transfers — Careem premium airport terminal ride transport credits — Generate minimum monthly card retail clearings of AED 5,000 — 2 complimentary airport transport rides per calendar year",
-                    insurance: "Travel Insurance — Comprehensive international travel medical and delay insurance — Secure travel itineraries utilizing the Journey card platform tool — Up to USD 500,000 medical treatment and baggage loss cover",
-                    hotel: "Hotel Benefits — Booking.com international lodging value optimization system — Route booking actions through the dedicated SC partner web interface — Up to 10% direct cashback matching on global accommodation listings",
-                    airline: "Airline Benefits — One-to-one ratio points transfer to major airlines — Initialize points trade steps via the SC 360 rewards web module — Zero processing fees tracking when converting to premium frequent flyer miles",
-                    dining: "Dining Benefits — SC 360 Rewards hospitality dining optimization platform — Pay for restaurant invoices using the Journey card device — Exclusive cost adjustment percentages tracking across select regional eateries",
-                    cashback: "N/A",
-                    rewards: "Rewards & Loyalty Programs — Standard Chartered 360° Rewards points computation system — Process transactions tracking travel, fine dining, or foreign currencies — Redeem accumulated points directly for frequent flyer miles or statement credits",
-                    golf: "N/A",
-                    fitness: "N/A",
-                    concierge: "Concierge Services — Visa Infinite 24/7 digital personal assistant matrix — Connect through online interface panels or the dedicated concierge application — Unlimited fulfillment loops for international asset sourcing, reservations, and bookings",
-                    entertainment: "Entertainment Benefits — Costa Coffee buy 1 get 1 free beverage perk — Settle point-of-sale invoices using card at domestic retail outlets — Maximum allocation of 4 complimentary beverage items per calendar month",
-                    lifestyle: "Lifestyle Privileges — Marhaba Premium Lounge access within domestic UAE airports — Show card profile at Marhaba customer care reception counters — 12 complimentary lounge visits tracking per calendar year loop",
-                    protection: "Insurance & Protection — Medical wallet protection asset insurance coverage structure — File official security reports detailing wallet theft within 24 hours — Up to USD 1,000 operational tracking reimbursement protection limits",
-                    other: "Other Benefits — Zero percent foreign currency processing fee marketing promotions — Settle spend inside designated international shopping categories during active windows — Variable duration limits bound to active promotional campaign calendar frameworks"
+                    lounge: "Lounge Access — Visa Airport Companion model with unlimited profile in matrix (requires qualifying USD 1 international spend trigger) — Register card in app — Access can be blocked when trigger transaction is missing",
+                    transfers: "Airport Transfers — 4 Careem airport transfers/year using code SCB100 (up to AED 100 per ride) — Requires at least one airline ticket transaction in prior 180 days (MCC 3000-3301 or 4722); Hala excluded — If condition fails, full ride cost is billed",
+                    insurance: "N/A",
+                    hotel: "N/A",
+                    airline: "Airline Benefits — 360 Rewards acceleration on international spending ties into travel redemptions — Ensure merchant coding validity for expected earn — Mis-coded tickets may fail transfer eligibility checks",
+                    dining: "N/A",
+                    cashback: "Cashback & Redemptions — Point-to-cash can reach 2% equivalent on travel bookings when claimed within 60 days — Voucher conversion benchmark 125 points = AED 1 — Late claims reduce realized value",
+                    rewards: "Rewards & Loyalty Programs — 360 Rewards earn: 4 points per USD equivalent on non-AED transactions, 2 points per USD equivalent on AED transactions — Travel-focused earn architecture — Statement-cycle behavior determines practical reward yield",
+                    golf: "Golf Benefits — SpikesOn bookings up to 7 days in advance; 1 round/billing cycle for Journey and 2 for Priority Private — Requires minimum spend AED 12,000 per cycle (AED 10,000 for Priority Private) — If spend target is missed, AED 525 penalty per round is charged retroactively",
+                    fitness: "Fitness Benefits — Warehouse Gym access up to 30 visits/billing cycle (unlimited for Priority Private) — First visit requires physical card + PARQ form; AED 1 auth per visit is reversed later — Requires AED 10,000 monthly retail spend; miss threshold or exceed cap and AED 525 penalty may apply",
+                    concierge: "N/A",
+                    entertainment: "N/A",
+                    lifestyle: "Lifestyle Privileges — Travel and wellness stack is spend-maintained rather than hard-blocked at point of use — Users can consume benefits before threshold is fully met — End-cycle penalty billing is the primary enforcement method",
+                    protection: "Protection & Fees — Portfolio highlights zero-liability style fee waivers on selected fee classes — Annual fee waiver in year one is spend-conditional in matrix (AED 10,000 in 60 days) — Missed conditions revert standard fee treatment",
+                    other: "Other Benefits — Core compliance risk is retroactive billing (gym/golf AED 525) when monthly spend gates are missed"
                 }
             }
         ];
@@ -897,16 +956,28 @@
             other: 'Other'
         };
 
+        const cardImageMap = {
+            'FAB World Elite Credit Card': 'images/cards/FAB_elite.avif',
+            'Mashreq Solitaire Credit Card': 'images/cards/mashreq_solitaire.png',
+            'Emirates NBD dnata World Mastercard': 'images/cards/ENBD_dnata.png',
+            'Emirates NBD SHARE Visa Signature Credit Card': 'images/cards/share_visa_signature_card.png',
+            'Emirates NBD Noon One Visa Credit Card': 'images/cards/enbd_noon_one_credit_card_front.png',
+            'Emirates Islamic Skywards Infinite Credit Card': 'images/cards/ei_cards_infinite_550x346.png',
+            'HSBC Premier Credit Card': 'images/cards/7297-mastercard-800x450.png',
+            'Citibank Prestige Credit Card': 'images/cards/5c590cc982dc4d09ba9d3379dd799463-citi visa infinite.jfif',
+            'Standard Chartered Journey Credit Card': 'images/cards/ae-nav-440x-280y-sc-card-on-journey.png'
+        };
+
         let selectedBenefitKeys = [];
 
         function splitBenefitText(rawString) {
             return rawString
-                .split(/\s*(?:—|\|)\s*/)
+                .split(/\s*(?:—|\||=)\s*/)
                 .map(part => part.trim())
                 .filter(Boolean);
         }
 
-        function summarizeBenefit(rawString) {
+        function summarizeBenefit(rawString, benefitKey = '') {
             if (rawString === 'N/A') {
                 return 'N/A';
             }
@@ -916,11 +987,35 @@
                 return rawString;
             }
 
-            if (parts.length === 1) {
-                return parts[0];
+            if (benefitKey === 'transfers' || benefitKey === 'golf' || benefitKey === 'fitness') {
+                const primary = parts[0].replace(/\bBenefits?\b$/i, '').trim();
+                const secondary = parts[1] || '';
+                const combined = secondary ? `${primary} - ${secondary}` : primary;
+                return combined.length > 34 ? `${combined.slice(0, 34).trimEnd()}…` : combined;
             }
 
-            return `${parts[0]}: ${parts[1]}`;
+            const shortLabel = parts[0].replace(/\bBenefits?\b$/i, '').trim();
+            return shortLabel.length > 18 ? `${shortLabel.slice(0, 18).trimEnd()}…` : shortLabel;
+        }
+
+        function formatBenefitSectionLabel(index) {
+            if (index === 0) return 'Benefit';
+            if (index === 1) return 'Provider / network';
+            if (index === 2) return 'Requirement / trigger';
+            if (index === 3) return 'Limit / frequency';
+            return 'Additional detail';
+        }
+
+        function buildBenefitDetails(rawString) {
+            const parts = splitBenefitText(rawString);
+            if (parts.length === 0) {
+                return [];
+            }
+
+            return parts.map((part, index) => ({
+                title: formatBenefitSectionLabel(index),
+                content: part
+            }));
         }
 
         function renderBenefitCheckboxes() {
@@ -1020,7 +1115,22 @@
                 a.target = "_blank";
                 a.rel = "noopener noreferrer";
                 a.className = "card-link";
-                a.innerHTML = highlightMarkup(card.name, cleanFilter);
+
+                const thumbPath = cardImageMap[card.name];
+                if (thumbPath) {
+                    const thumb = document.createElement('img');
+                    thumb.src = thumbPath;
+                    thumb.alt = `${card.name} card image`;
+                    thumb.className = 'card-thumb';
+                    thumb.loading = 'lazy';
+                    thumb.decoding = 'async';
+                    a.appendChild(thumb);
+                }
+
+                const cardName = document.createElement('span');
+                cardName.className = 'card-name';
+                cardName.innerHTML = highlightMarkup(card.name, cleanFilter);
+                a.appendChild(cardName);
                 tdCard.appendChild(a);
                 tr.appendChild(tdCard);
 
@@ -1035,9 +1145,10 @@
                         td.innerHTML = '<ul class="benefit-ul"><li class="benefit-li">N/A</li></ul>';
                     } else {
                         td.className = "benefit-cell";
-                        td.innerHTML = `<span class="cell-summary">${highlightMarkup(summarizeBenefit(rawValue), cleanFilter)}</span>`;
+                        td.innerHTML = `<span class="cell-summary">${highlightMarkup(summarizeBenefit(rawValue, key), cleanFilter)}</span>`;
+                        const benefitUrl = (card.benefitLinks && card.benefitLinks[key]) || card.url;
                         // Click management to capture cell context
-                        td.addEventListener('click', () => openBenefitDetails(card.name, key, rawValue));
+                        td.addEventListener('click', () => openBenefitDetails(card.name, key, rawValue, benefitUrl));
                     }
                     tr.appendChild(td);
                 });
@@ -1055,7 +1166,7 @@
         }
 
         // Deep-dive analysis and text parsing for the modal display
-        function openBenefitDetails(cardName, technicalKey, rawString) {
+        function openBenefitDetails(cardName, technicalKey, rawString, officialUrl) {
             document.getElementById('mCardName').innerText = cardName;
             
             // Format column key for user view
@@ -1068,40 +1179,83 @@
             const modalBody = document.getElementById('modalBody');
             modalBody.innerHTML = '';
 
-            const parts = splitBenefitText(rawString);
+            const sections = buildBenefitDetails(rawString);
 
-            if (parts.length >= 2) {
-                const overviewContent = [parts[0], parts[1]].filter(Boolean).join(' - ');
-                const useDetails = parts[2] || 'No separate usage steps were provided for this benefit.';
-                const limitDetails = parts[3] || 'No explicit frequency limit was listed.';
-                const supportDetails = [parts[1], parts[2]].filter(Boolean).join(' ');
-                const structuralSections = [
-                    { title: 'Overview', content: overviewContent, lead: true },
-                    { title: 'How it works', content: parts[2] || 'Present the card, app, or linked account where supported.' },
-                    { title: 'Eligibility or spend', content: useDetails.toLowerCase().includes('spend') ? useDetails : 'Any spend thresholds are shown in the benefit summary above.' },
-                    { title: 'Limits', content: limitDetails },
-                    { title: 'Provider notes', content: supportDetails.includes('Visa') ? 'Visa network benefit' : supportDetails.includes('Mastercard') ? 'Mastercard network benefit' : 'Bank or partner benefit' }
-                ];
+            if (sections.length > 0) {
+                const officialSection = document.createElement('div');
+                officialSection.className = 'modal-section';
 
-                structuralSections.forEach(section => {
-                    const sectionDiv = document.createElement('div');
-                    sectionDiv.className = "modal-section";
-                    if (section.lead) {
-                        sectionDiv.classList.add('lead-section');
-                    }
-                    
-                    const titleDiv = document.createElement('div');
-                    titleDiv.className = "modal-section-title";
-                    titleDiv.innerText = section.title;
-                    
-                    const contentDiv = document.createElement('div');
-                    contentDiv.className = "modal-section-content";
-                    contentDiv.innerText = section.content;
-                    
-                    sectionDiv.appendChild(titleDiv);
-                    sectionDiv.appendChild(contentDiv);
-                    modalBody.appendChild(sectionDiv);
-                });
+                const officialTitle = document.createElement('div');
+                officialTitle.className = 'modal-section-title';
+                officialTitle.innerText = 'Official page';
+
+                const officialContent = document.createElement('div');
+                officialContent.className = 'modal-section-content';
+                const officialLink = document.createElement('a');
+                officialLink.className = 'modal-link';
+                officialLink.href = officialUrl;
+                officialLink.target = '_blank';
+                officialLink.rel = 'noopener noreferrer';
+                officialLink.innerText = officialUrl;
+                officialContent.appendChild(officialLink);
+
+                officialSection.appendChild(officialTitle);
+                officialSection.appendChild(officialContent);
+                modalBody.appendChild(officialSection);
+
+                const leadSection = document.createElement('div');
+                leadSection.className = 'modal-section lead-section';
+
+                const leadTitle = document.createElement('div');
+                leadTitle.className = 'modal-section-title';
+                leadTitle.innerText = 'Benefit summary';
+
+                const leadContent = document.createElement('div');
+                leadContent.className = 'modal-section-content';
+                leadContent.innerText = sections[0].content;
+
+                leadSection.appendChild(leadTitle);
+                leadSection.appendChild(leadContent);
+                modalBody.appendChild(leadSection);
+
+                if (sections.length > 1) {
+                    const detailIntro = document.createElement('div');
+                    detailIntro.className = 'modal-section';
+                    detailIntro.innerHTML = '<div class="modal-section-title">Detailed breakdown</div>';
+                    modalBody.appendChild(detailIntro);
+
+                    sections.slice(1).forEach((section) => {
+                        const sectionDiv = document.createElement('div');
+                        sectionDiv.className = 'modal-section';
+
+                        const titleDiv = document.createElement('div');
+                        titleDiv.className = 'modal-section-title';
+                        titleDiv.innerText = section.title;
+
+                        const contentDiv = document.createElement('div');
+                        contentDiv.className = 'modal-section-content';
+                        contentDiv.innerText = section.content;
+
+                        sectionDiv.appendChild(titleDiv);
+                        sectionDiv.appendChild(contentDiv);
+                        modalBody.appendChild(sectionDiv);
+                    });
+
+                    const sourceSection = document.createElement('div');
+                    sourceSection.className = 'modal-section';
+
+                    const sourceTitle = document.createElement('div');
+                    sourceTitle.className = 'modal-section-title';
+                    sourceTitle.innerText = 'Source text';
+
+                    const sourceContent = document.createElement('div');
+                    sourceContent.className = 'modal-section-content';
+                    sourceContent.innerText = rawString;
+
+                    sourceSection.appendChild(sourceTitle);
+                    sourceSection.appendChild(sourceContent);
+                    modalBody.appendChild(sourceSection);
+                }
             } else {
                 modalBody.innerHTML = `<div class="na-modal-msg">No detailed breakdown is available for this benefit.</div>`;
             }
