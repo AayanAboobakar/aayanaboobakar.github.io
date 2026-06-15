@@ -340,7 +340,9 @@
         .benefit-cell .cell-summary {
             display: block;
             line-height: 1.55;
-            max-width: 20ch;
+            max-width: none;
+            white-space: normal;
+            overflow-wrap: anywhere;
         }
 
         .benefit-cell.na-cell {
@@ -987,15 +989,14 @@
                 return rawString;
             }
 
-            if (benefitKey === 'transfers' || benefitKey === 'golf' || benefitKey === 'fitness') {
-                const primary = parts[0].replace(/\bBenefits?\b$/i, '').trim();
-                const secondary = parts[1] || '';
-                const combined = secondary ? `${primary} - ${secondary}` : primary;
-                return combined.length > 34 ? `${combined.slice(0, 34).trimEnd()}…` : combined;
+            const quickFacts = parts.slice(1, 3).filter(Boolean);
+
+            if (quickFacts.length === 0) {
+                return parts[0].replace(/\bBenefits?\b$/i, '').trim();
             }
 
-            const shortLabel = parts[0].replace(/\bBenefits?\b$/i, '').trim();
-            return shortLabel.length > 18 ? `${shortLabel.slice(0, 18).trimEnd()}…` : shortLabel;
+            const summary = quickFacts.join(' • ');
+            return summary.length > 170 ? `${summary.slice(0, 167).trimEnd()}…` : summary;
         }
 
         function formatBenefitSectionLabel(index) {
