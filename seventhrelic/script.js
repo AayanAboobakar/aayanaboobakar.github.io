@@ -39,10 +39,8 @@ function renderPosts() {
   grid.innerHTML = images
     .map((image, index) => {
       const src = encodeURI(image);
-      const title = image
-        .split('/')
-        .pop()
-        ?.replace(/\.[^.]+$/, '')
+      const rawName = decodeURIComponent(image.split('/').pop()?.replace(/\.[^.]+$/, '') || `post-${index + 1}`);
+      const title = rawName
         .replace(/[-_]/g, ' ')
         .replace(/\s+/g, ' ')
         .trim()
@@ -50,7 +48,7 @@ function renderPosts() {
 
       return `
         <button class="post-card" type="button" data-src="${src}" data-title="${title}">
-          <img src="${src}" alt="${title}" loading="lazy" decoding="async" />
+          <img src="${src}" alt="${rawName}" loading="lazy" decoding="async" />
         </button>
       `;
     })
@@ -58,7 +56,9 @@ function renderPosts() {
 
   grid.querySelectorAll('.post-card').forEach((card) => {
     card.addEventListener('click', () => {
-      openLightbox(card.dataset.src, card.dataset.title);
+      const img = card.querySelector('img');
+      const alt = img ? img.alt : card.dataset.title;
+      openLightbox(card.dataset.src, alt);
     });
   });
 }
