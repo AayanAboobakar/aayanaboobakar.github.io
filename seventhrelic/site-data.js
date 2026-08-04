@@ -78,9 +78,12 @@ window.__SEVENTHRELIC__ = {
   ]
 };
 
-/* Added post 25 images */
+/* Added post25 and post26 images */
 window.__SEVENTHRELIC__.images.push(
-  "assets/images/posts/post 25/choose kindness.jpg",
-  "assets/images/posts/post 25/the world needs good people.jpg",
-  "assets/images/posts/post 25/the choices make us who we are.jpg"
+  "assets/images/posts/post25/choose kindness.jpg",
+  "assets/images/posts/post25/the world needs good people.jpg",
+  "assets/images/posts/post25/the choices make us who we are.jpg",
+  "assets/images/posts/post26/dreams dont work unless you do.jpg",
+  "assets/images/posts/post26/if not now then when.jpg",
+  "assets/images/posts/post26/risk is always better than regret.jpg"
 );
