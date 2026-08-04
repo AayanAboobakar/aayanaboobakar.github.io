@@ -77,3 +77,10 @@ window.__SEVENTHRELIC__ = {
     "assets/images/posts/post24/IMG_7239.jpeg"
   ]
 };
+
+/* Added post 25 images */
+window.__SEVENTHRELIC__.images.push(
+  "assets/images/posts/post 25/choose kindness.jpg",
+  "assets/images/posts/post 25/the world needs good people.jpg",
+  "assets/images/posts/post 25/the choices make us who we are.jpg"
+);
