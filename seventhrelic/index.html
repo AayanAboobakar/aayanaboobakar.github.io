@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>seventhrelic</title>
+    <meta name="description" content="seventhrelic posts and visuals." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="icon" href="./assets/images/brand/logo-circle.png" type="image/png" />
+    <script src="./site-data.js" defer></script>
+    <script type="module" src="./script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header" role="banner">
+      <div class="site-header-inner">
+        <a class="watermark" href="#feed" aria-label="seventhrelic">
+          <img src="./assets/images/brand/watermark-black.png" alt="" />
+        </a>
+
+        <div class="social-top" aria-hidden="false">
+          <a class="social-btn" href="https://www.instagram.com/seventhrelic" target="_blank" rel="noopener" aria-label="Open Instagram">
+            <!-- Instagram SVG -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.6" fill="none" />
+              <path d="M12 7.25a4.75 4.75 0 1 0 0 9.5 4.75 4.75 0 0 0 0-9.5z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" />
+            </svg>
+          </a>
+
+          <a class="social-btn" href="https://www.tiktok.com/@seventhrelic" target="_blank" rel="noopener" aria-label="Open TikTok">
+            <!-- TikTok icon from Flaticon (PNG) -->
+            <img src="https://cdn-icons-png.flaticon.com/512/3046/3046120.png" alt="TikTok" />
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="feed" class="feed">
+      <div id="post-grid" class="post-grid" aria-label="Posts"></div>
+    </main>
+
+    <div id="lightbox" class="lightbox" hidden>
+      <button class="lightbox-backdrop" type="button" aria-label="Close preview"></button>
+      <figure class="lightbox-panel" role="dialog" aria-modal="true" aria-label="Post preview">
+        <button class="lightbox-close" type="button" aria-label="Close preview">×</button>
+        <img id="lightbox-image" alt="" />
+        <figcaption class="lightbox-actions">
+          <a id="lightbox-download" class="download" download>Download</a>
+        </figcaption>
+      </figure>
+    </div>
+
+    <!-- bottom social bar removed; icons kept at top only -->
+    <button class="back-to-top" type="button" aria-label="Back to top" hidden>
+      <img src="./assets/icons/up-arrow.png" alt="Up arrow" />
+    </button>
+  </body>
+</html>
