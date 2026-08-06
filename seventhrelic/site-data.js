@@ -74,16 +74,17 @@ window.__SEVENTHRELIC__ = {
     "assets/images/posts/post23/your legacy is built by your actions.jpg",
     "assets/images/posts/post24/IMG_7237.jpeg",
     "assets/images/posts/post24/IMG_7238.jpeg",
-    "assets/images/posts/post24/IMG_7239.jpeg"
+    "assets/images/posts/post24/IMG_7239.jpeg",
+    "assets/images/posts/post25/choose kindness.jpg",
+    "assets/images/posts/post25/the world needs good people.jpg",
+    "assets/images/posts/post25/the choices make us who we are.jpg",
+    "assets/images/posts/post26/dreams dont work unless you do.jpg",
+    "assets/images/posts/post26/if not now then when.jpg",
+    "assets/images/posts/post26/risk is always better than regret.jpg"
   ]
 };
 
 /* Added post25 and post26 images */
-window.__SEVENTHRELIC__.images.push(
-  "assets/images/posts/post25/choose kindness.jpg",
-  "assets/images/posts/post25/the world needs good people.jpg",
-  "assets/images/posts/post25/the choices make us who we are.jpg",
-  "assets/images/posts/post26/dreams dont work unless you do.jpg",
-  "assets/images/posts/post26/if not now then when.jpg",
-  "assets/images/posts/post26/risk is always better than regret.jpg"
-);
+// window.__SEVENTHRELIC__.images.push(
+
+// );
