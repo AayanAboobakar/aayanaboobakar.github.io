@@ -27,9 +27,6 @@ window.__SEVENTHRELIC__ = {
     "assets/images/posts/post9/just keep livin.jpg",
     "assets/images/posts/post9/nothing is that serious.jpg",
     "assets/images/posts/post9/who cares what others think.jpg",
-    "assets/images/posts/post10/IMG_7056.jpeg",
-    "assets/images/posts/post10/IMG_7057.jpeg",
-    "assets/images/posts/post10/IMG_7058.jpeg",
     "assets/images/posts/post10/good things take time.jpg",
     "assets/images/posts/post10/trust the process.jpg",
     "assets/images/posts/post10/your moment is coming.jpg",
@@ -76,15 +73,10 @@ window.__SEVENTHRELIC__ = {
     "assets/images/posts/post24/IMG_7238.jpeg",
     "assets/images/posts/post24/IMG_7239.jpeg",
     "assets/images/posts/post25/choose kindness.jpg",
-    "assets/images/posts/post25/the world needs good people.jpg",
     "assets/images/posts/post25/the choices make us who we are.jpg",
+    "assets/images/posts/post25/the world needs good people.jpg",
     "assets/images/posts/post26/dreams dont work unless you do.jpg",
     "assets/images/posts/post26/if not now then when.jpg",
     "assets/images/posts/post26/risk is always better than regret.jpg"
   ]
 };
-
-/* Added post25 and post26 images */
-// window.__SEVENTHRELIC__.images.push(
-
-// );
