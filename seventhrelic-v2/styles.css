@@ -1,0 +1,328 @@
+:root {
+  --header-height: 88px;
+  --bg: #f2aa84;
+  --bg-soft: #f8c6ab;
+  --panel: rgba(255, 249, 245, 0.7);
+  --ink: #111111;
+  --muted: rgba(17, 17, 17, 0.62);
+  --line: rgba(17, 17, 17, 0.1);
+  --shadow: 0 20px 50px rgba(86, 34, 14, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.36), transparent 34%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+a,
+button {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+}
+
+.watermark {
+  display: inline-flex;
+  background: transparent;
+  padding: 0;
+}
+
+.watermark img {
+  width: 120px;
+  height: auto;
+  display: block;
+}
+
+/* Header container holding watermark and social icons */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  z-index: 60;
+  background: transparent;
+}
+
+.site-header.hidden {
+  transform: translateY(-100%);
+  transition: transform 220ms ease;
+  pointer-events: none;
+}
+
+.site-header:not(.hidden) {
+  transform: translateY(0);
+  transition: transform 220ms ease;
+  pointer-events: auto;
+}
+
+.site-header-inner {
+  width: min(1200px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.social-top {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: none;
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.social-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+}
+
+.social-btn svg { display: block; width: 20px; height: 20px; }
+.social-btn img { display: block; width: 20px; height: 20px; }
+
+/* Back to top button */
+.back-to-top {
+  position: fixed;
+  right: 20px;
+  bottom: 22px;
+  width: 88px;
+  height: 88px;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 40;
+  border: 0;
+  cursor: pointer;
+  box-shadow: none;
+  transition: transform 160ms ease, opacity 200ms ease;
+}
+
+.back-to-top[hidden] {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(6px) scale(0.98);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.back-to-top img { display: block; width: 44px; height: 44px; }
+
+.feed {
+  width: min(1200px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: var(--header-height) 0 30px;
+}
+
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(6px, 1.5vw, 18px);
+}
+
+.post-card {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 14px 34px rgba(86, 34, 14, 0.08);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.post-card:hover {
+  transform: translateY(-2px) scale(1.005);
+  box-shadow: 0 24px 42px rgba(86, 34, 14, 0.12);
+}
+
+.post-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(18, 10, 6, 0.74);
+}
+
+.lightbox-panel {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  display: inline-block;
+  width: fit-content;
+  max-width: 92vw;
+  max-height: 92vh;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  line-height: 0;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.7);
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lightbox-panel img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 92vw;
+  max-height: 92vh;
+  object-fit: contain;
+  border-radius: 0;
+}
+
+.lightbox-actions {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+}
+
+.download {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  text-decoration: none;
+}
+
+.site-footer {
+  width: min(1200px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 18px 0 22px;
+  text-align: center;
+  color: rgba(17, 17, 17, 0.72);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+@media (max-width: 680px) {
+  .feed {
+    width: min(100% - 16px, 1200px);
+    padding-top: calc(var(--header-height) - 10px);
+  }
+
+  .watermark img {
+    width: 94px;
+  }
+
+  /* On narrow screens keep header elements fixed at top and add safe padding so posts don't sit underneath */
+  @media (max-width: 520px) {
+    .watermark img {
+      width: 72px;
+    }
+
+    .social-top {
+      gap: 8px;
+    }
+
+    .feed {
+      padding-top: calc(var(--header-height) + 40px); /* increase top padding to avoid overlap */
+    }
+  }
+
+  .lightbox-panel {
+    max-width: calc(100vw - 16px);
+    max-height: calc(100vh - 16px);
+  }
+
+  .lightbox-panel img {
+    max-width: calc(100vw - 16px);
+    max-height: calc(100vh - 16px);
+  }
+
+  /* keep three columns but reduce spacing more on very narrow screens */
+  .post-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(4px, 2.2vw, 12px);
+  }
+
+  .site-footer {
+    width: min(100% - 16px, 1200px);
+    padding-bottom: 18px;
+  }
+}
